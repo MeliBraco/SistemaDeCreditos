@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include "Cliente.c"
 
-int main() {
-    printf("Hello, World!\n");
-    return 0;
+int main()
+{
+    ingresar();
 }
