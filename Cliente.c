@@ -29,7 +29,7 @@ void ingresar(){
 
     strcpy(nuevoCliente.nombre, nombreAux);
 
-    //FilePath(&nuevoCliente);
+   // FilePath(&nuevoCliente);
 
     printf("El Empleado fue guardado correctamente \n\n");
 }
