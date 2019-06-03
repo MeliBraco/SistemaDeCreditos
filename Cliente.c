@@ -49,5 +49,35 @@ void FilePath(struct Cliente *nuevoCliente)
         archivo = fopen("Cliente500_1000.txt", "a");
     }
 
-    //guardar(&nuevoCliente ,archivo);
+    guardar(&nuevoCliente ,archivo);
+}
+
+
+void guardar(struct Cliente *nuevoCliente, FILE * archivo){
+
+    char auxId[10];
+    sprintf(auxId, "%d", nuevoCliente->Id);
+
+    char auxEdad[3];
+    sprintf(auxEdad, "%d", nuevoCliente->edad);
+
+    char auxDNI[100];
+    sprintf(auxDNI, "%d", nuevoCliente->dni);
+
+    //guardar en archivo
+
+    fputs("ID:", archivo);
+    fputs(auxId ,archivo);
+    fputs(" ---->", archivo);
+    fputs(" NOMBRE:", archivo);
+    fputs(nuevoCliente->nombre ,archivo);
+    fputs(" APELLIDO:", archivo);
+    fputs(nuevoCliente->apellido ,archivo);
+    fputs(" DNI:", archivo);
+    fputs(auxDNI, archivo);
+    fputs(" EDAD:", archivo);
+    fputs(auxEdad, archivo);
+    fputs(" \n", archivo);
+
+    fclose(archivo);
 }
