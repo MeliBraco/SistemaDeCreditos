@@ -1,24 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-struct Cliente{
-
-    char nombre[100];
-
-    char apellido[100];
-
+struct cliente{
+    char* nombre;
     int edad;
-
-    int Id;
-
-    unsigned int dni;
-
-    struct Cliente * refCliente;
+    struct cliente *referido;
 };
 
-void ingresar();
-
-void FilePath(struct Cliente *);
-
-void guardar(struct Cliente *, FILE *);
-
+struct credito{
+    struct cliente usuario;
+    int pagado;
+    int deuda;
+};
 
