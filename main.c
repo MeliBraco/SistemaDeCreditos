@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "Default.h"
+#include "Cliente.c"
 
 
 int main() {
-    printf("Hello, World!\n");
-    return 0;
+
+    ingresar();
 }

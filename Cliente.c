@@ -29,6 +29,8 @@ void ingresar(){
 
     strcpy(nuevoCliente.nombre, nombreAux);
 
+    nuevoCliente.credito = 0;
+
     FilePath(&nuevoCliente);
 
     printf("El Empleado fue guardado correctamente \n\n");
@@ -42,20 +44,19 @@ void FilePath(struct Cliente *nuevoCliente)
 
     if(nuevoCliente->Id > 0 && nuevoCliente->Id <= 500 ){
 
-        archivo = fopen("Cliente0_500.txt", "a");
+        archivo = fopen("Archivo1.txt", "a");
     }
     else if(nuevoCliente->Id > 500 && nuevoCliente->Id <= 1000){
 
-        archivo = fopen("Cliente500_1000.txt", "a");
+        archivo = fopen("Archivo2.txt", "a");
     }
 
-    guardar(&nuevoCliente ,archivo);
+    guardar(nuevoCliente ,archivo);
 }
-
 
 void guardar(struct Cliente *nuevoCliente, FILE * archivo){
 
-    char auxId[10];
+    char auxId[900];
     sprintf(auxId, "%d", nuevoCliente->Id);
 
     char auxEdad[3];
@@ -63,6 +64,9 @@ void guardar(struct Cliente *nuevoCliente, FILE * archivo){
 
     char auxDNI[100];
     sprintf(auxDNI, "%d", nuevoCliente->dni);
+
+    char auxCredito[100];
+    sprintf(auxCredito, "%d", nuevoCliente->credito);
 
     //guardar en archivo
 
@@ -77,7 +81,11 @@ void guardar(struct Cliente *nuevoCliente, FILE * archivo){
     fputs(auxDNI, archivo);
     fputs(" EDAD:", archivo);
     fputs(auxEdad, archivo);
+    fputs(" TOTAL CREDIT0: $", archivo);
+    fputs(auxCredito, archivo);
     fputs(" \n", archivo);
 
     fclose(archivo);
 }
+
+

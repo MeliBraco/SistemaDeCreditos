@@ -13,6 +13,8 @@ struct Cliente{
 
     unsigned int dni;
 
+    unsigned int credito;
+
     struct Cliente * refCliente;
 };
 
@@ -21,3 +23,4 @@ void ingresar();
 void FilePath(struct Cliente *);
 
 void guardar(struct Cliente *, FILE *);
+
