@@ -24,3 +24,7 @@ void FilePath(struct Cliente *);
 
 void guardar(struct Cliente *, FILE *);
 
+void getFicheros();
+
+void getClientes(char [50]);
+

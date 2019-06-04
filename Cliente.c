@@ -88,4 +88,54 @@ void guardar(struct Cliente *nuevoCliente, FILE * archivo){
     fclose(archivo);
 }
 
+void getFicheros()
+{
+    int opciones;
 
+    do{
+        printf("MENU FICEHROS:"
+               "\n1- Archivo1.txt (ID 0 A 500)"
+               "\n2- Archivo2.txt (ID 500 A 1000)"
+               "\n2- Volver Menu Principal"
+               "\nIngrese una Opcion:\n\n");
+
+        scanf("%d", &opciones);
+
+        switch(opciones) {
+
+            case 1:
+                getClientes("Archivo1.txt");
+
+                break;
+
+            case 2:
+                getClientes("Archivo2.txt");
+
+                break;
+
+            default:
+                printf("Archivo inexistente. \n");
+        }
+
+    }while(opciones !=6);
+}
+
+void getClientes(char nombre [50])
+{
+    FILE * archivo;
+
+    archivo = fopen(nombre, "r");
+
+    char cliente;
+
+    while(cliente != EOF)
+    {
+        cliente = fgetc(archivo);
+
+        printf("%c", cliente);
+    }
+
+    printf("\n");
+
+    fclose(archivo);
+}
