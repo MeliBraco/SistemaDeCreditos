@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "Default.h"
 #include <string.h>
+#include <stdlib.h>
+
 
 void ingresar(){
 
@@ -44,11 +46,11 @@ void FilePath(struct Cliente *nuevoCliente)
 
     if(nuevoCliente->Id > 0 && nuevoCliente->Id <= 500 ){
 
-        archivo = fopen("Archivo1.txt", "a");
+        archivo = fopen("Archivo1.csv", "a");
     }
     else if(nuevoCliente->Id > 500 && nuevoCliente->Id <= 1000){
 
-        archivo = fopen("Archivo2.txt", "a");
+        archivo = fopen("Archivo2.csv", "a");
     }
 
     guardar(nuevoCliente ,archivo);
@@ -68,22 +70,13 @@ void guardar(struct Cliente *nuevoCliente, FILE * archivo){
     char auxCredito[100];
     sprintf(auxCredito, "%d", nuevoCliente->credito);
 
-    //guardar en archivo
-
-    fputs("ID:", archivo);
-    fputs(auxId ,archivo);
-    fputs(" ---->", archivo);
-    fputs(" NOMBRE:", archivo);
-    fputs(nuevoCliente->nombre ,archivo);
-    fputs(" APELLIDO:", archivo);
-    fputs(nuevoCliente->apellido ,archivo);
-    fputs(" DNI:", archivo);
-    fputs(auxDNI, archivo);
-    fputs(" EDAD:", archivo);
-    fputs(auxEdad, archivo);
-    fputs(" TOTAL CREDIT0: $", archivo);
-    fputs(auxCredito, archivo);
-    fputs(" \n", archivo);
+    fprintf (archivo,  "%d,%s,%s,%d,%d,%d",
+             nuevoCliente->Id,
+             nuevoCliente->apellido,
+             nuevoCliente->nombre,
+             nuevoCliente->edad,
+             nuevoCliente->dni,
+             nuevoCliente->credito);
 
     fclose(archivo);
 }
@@ -104,12 +97,12 @@ void getFicheros()
         switch(opciones) {
 
             case 1:
-                getClientes("Archivo1.txt");
+                getClientes("Archivo1.csv");
 
                 break;
 
             case 2:
-                getClientes("Archivo2.txt");
+                getClientes("Archivo2.csv");
 
                 break;
 
@@ -139,3 +132,4 @@ void getClientes(char nombre [50])
 
     fclose(archivo);
 }
+

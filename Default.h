@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 
 struct Cliente{
@@ -27,4 +26,3 @@ void guardar(struct Cliente *, FILE *);
 void getFicheros();
 
 void getClientes(char [50]);
-
