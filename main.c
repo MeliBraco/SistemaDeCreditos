@@ -4,6 +4,5 @@
 
 int main() {
 
- getClientes();
-
+  buscarClientePorEdad();
 }

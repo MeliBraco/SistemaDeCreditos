@@ -23,9 +23,9 @@ void guardarEnArchivo(struct Cliente *);
 
 void getClientes();
 
-void buscarClientePorId(int);
+void buscarClientePorId();
 
-void buscarClientePorNombre(char [100]);
+void buscarClientePorNombre();
 
 void imprimirCliente(struct Cliente);
 

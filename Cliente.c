@@ -56,7 +56,7 @@ void guardarEnArchivo(struct Cliente *nuevoCliente){
     char auxCredito[100];
     sprintf(auxCredito, "%d", nuevoCliente->credito);
 
-    fprintf(archivo,  "\n %d,%s,%s,%d,%d,%d",
+    fprintf(archivo,  "\n%d,%s,%s,%d,%d,%d",
              nuevoCliente->Id,
              nuevoCliente->apellido,
              nuevoCliente->nombre,
@@ -117,7 +117,7 @@ void getClientes()
     }
 }
 
-void buscarClientePorId(int id)
+void buscarClientePorId()
 {
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
@@ -127,9 +127,14 @@ void buscarClientePorId(int id)
 
     char *token;
 
-    int longitud=1;
+    int longitud = 0;
 
     int encontro = 0;
+
+    int id;
+
+    printf("Ingresar Id:\n");
+    scanf("%d", &id);
 
     while(!feof(archivo))
     {
@@ -173,9 +178,14 @@ void buscarClientePorId(int id)
             }
         }
     }
+
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el ID: %d", id);
+    }
 }
 
-void buscarClientePorNombre(char nombre [100])
+void buscarClientePorNombre()
 {
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
@@ -185,7 +195,15 @@ void buscarClientePorNombre(char nombre [100])
 
     char *token;
 
-    int longitud=1;
+    int longitud = 0;
+
+    int encontro = 0;
+
+    char nombre [100];
+
+    printf("Ingresar Nombre:\n");
+    scanf("%s", nombre);
+
 
     while(!feof(archivo))
     {
@@ -223,6 +241,78 @@ void buscarClientePorNombre(char nombre [100])
         {
             imprimirCliente(vCliente[i]);
         }
+    }
+
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el Nombre: %s", nombre);
+    }
+}
+
+void buscarClientePorEdad()
+{
+    FILE *archivo = fopen("Archivo1.csv", "rt");
+
+    struct Cliente vCliente[100];
+
+    char linea[100];
+
+    char *token;
+
+    int longitud = 0;
+
+    int encontro = 0;
+
+    int edadA, edadB;
+
+    printf("Ingresar Rango de edad:\nMenor Valor:");
+    scanf("%d", &edadA);
+    printf("Mayor Valor:");
+    scanf("%d", &edadB);
+
+    while(!feof(archivo))
+    {
+        fgets(linea,100, archivo);
+
+        token = strtok(linea,",");
+
+        if(*token != 10)
+        {
+            vCliente[longitud].Id = atoi(token);
+
+            token = strtok(NULL,",");
+            strcpy(vCliente[longitud].nombre,token);
+
+            token = strtok(NULL,",");
+            strcpy(vCliente[longitud].apellido,token);
+
+            token = strtok(NULL,",");
+            vCliente[longitud].dni = atoi(token);
+
+            token = strtok(NULL,",");
+            vCliente[longitud].edad = atoi(token);
+
+            token = strtok(NULL,",");
+            vCliente[longitud].credito = atof(token);
+
+        }
+        longitud++;
+    }
+    fclose(archivo);
+
+    for(int i = 0; i<longitud; i++)
+    {
+        if(vCliente[i].edad >= edadA && vCliente[i].edad <= edadB )
+        {
+            imprimirCliente(vCliente[i]);
+
+            encontro = 1;
+        }
+    }
+
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el rango de edad: %d - %d", edadA, edadB);
     }
 }
 
