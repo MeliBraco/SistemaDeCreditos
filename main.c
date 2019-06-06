@@ -4,5 +4,6 @@
 
 int main() {
 
-    buscarClientePorId(9);
+ getClientes();
+
 }

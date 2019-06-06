@@ -19,14 +19,13 @@ struct Cliente{
 
 void ingresar();
 
-void FilePathGuardar(struct Cliente *);
+void guardarEnArchivo(struct Cliente *);
 
-void guardar(struct Cliente *, FILE *);
+void getClientes();
 
-void getFicheros();
+void buscarClientePorId(int);
 
-void getClientes(char [50]);
-
-void buscarClientePorId();
+void buscarClientePorNombre(char [100]);
 
 void imprimirCliente(struct Cliente);
+
