@@ -1,21 +1,13 @@
 #include <stdlib.h>
 
 struct Cliente{
-
     int Id;
-
     char nombre[100];
-
     char apellido[100];
-
     int edad;
-
     unsigned int dni;
-
     int ListaCreditos [3];
-
     float limiteCredito;
-
     struct Cliente * refCliente;
 };
 
@@ -49,3 +41,5 @@ int DeudaActual(struct Cliente *, float);
 void sobrescribirArchivo(struct Cliente *);
 
 void exepcionId(int, int);
+
+struct Cliente* cargarClientes(FILE *csv, struct Cliente* vCliente);

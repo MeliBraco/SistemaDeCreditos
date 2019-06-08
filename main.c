@@ -2,7 +2,6 @@
 #include "Cliente.c"
 
 int main() {
-
-    solicitarCredito();
+    buscarClientePorNombre();
     return 0;
 }

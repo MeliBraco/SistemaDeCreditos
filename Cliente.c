@@ -250,54 +250,15 @@ void buscarClientePorId()
 void buscarClientePorNombre()
 {
 
-    /*
-     * struct Cliente vCliente[100];
-     * vCliente = cargarClientes(csv, vCliente);
-     */
-    FILE *archivo = fopen("Archivo1.csv", "rt");
-
     struct Cliente vCliente[100];
 
-    char linea[100];
-
-    char *token;
+    cargarClientes(vCliente);
 
     int longitud = 0;
 
     int encontro = 0;
 
     char nombre [100];
-
-    printf("Ingresar Nombre:\n");
-    scanf("%s", nombre);
-
-
-    while(!feof(archivo))
-    {
-        fgets(linea,100, archivo);
-
-        token = strtok(linea,",");
-
-        if(*token != 10)
-        {
-            vCliente[longitud].Id = atoi(token);
-
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].nombre,token);
-
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].apellido,token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].dni = atoi(token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].edad = atoi(token);
-
-        }
-        longitud++;
-    }
-    fclose(archivo);
 
     for(int i = 0; i<longitud; i++)
     {
@@ -538,9 +499,9 @@ void exepcionId(int encontro, int id)
 }
 
 
-struct Cliente* cargarClientes(FILE *csv, struct Cliente* vCliente){
+void cargarClientes(struct Cliente* vCliente){
 
-    FILE *archivo = csv;
+    FILE *archivo = fopen("Archivo1.csv", "rt");
     char linea[100];
     char *token;
     int longitud=1;
@@ -565,4 +526,9 @@ struct Cliente* cargarClientes(FILE *csv, struct Cliente* vCliente){
         longitud++;
     }
     fclose(archivo);
+    int i = 0;
+    while (i>3){
+        imprimirCliente(vCliente[i]);
+        i++;
+    }
 }
