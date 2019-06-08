@@ -476,3 +476,17 @@ void solicitarCredito()
     }
 }
 
+int menuTipoCredito()
+{
+    int opciones;
+
+    printf("\nTIPO DE CREDITOS DISPONIBLES"
+           "\n1- Credito Hipotecario"
+           "\n2- Credito Automotor"
+           "\n3- Otros Creditos"
+           "\nIngrese una Opcion:\n");
+
+    scanf("%d", &opciones);
+
+    return opciones;
+}
