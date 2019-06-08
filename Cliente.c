@@ -490,3 +490,16 @@ int menuTipoCredito()
 
     return opciones;
 }
+
+int DeudaActual(struct Cliente *nuevoCliente, float monto)
+{
+    int total = 0;
+    int longitudCredito = 3;
+
+    for(int j = 0; j<longitudCredito; j++)
+    {
+        total = total + nuevoCliente->ListaCreditos[j];
+    }
+
+    return total + monto;
+}
