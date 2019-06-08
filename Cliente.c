@@ -249,6 +249,11 @@ void buscarClientePorId()
 
 void buscarClientePorNombre()
 {
+
+    /*
+     * struct Cliente vCliente[100];
+     * vCliente = cargarClientes(csv, vCliente);
+     */
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
     struct Cliente vCliente[100];
@@ -530,4 +535,34 @@ void exepcionId(int encontro, int id)
     {
         printf("no se encontraron resultados para el Cliente con ID: %d", id);
     }
+}
+
+
+struct Cliente* cargarClientes(FILE *csv, struct Cliente* vCliente){
+
+    FILE *archivo = csv;
+    char linea[100];
+    char *token;
+    int longitud=1;
+    while(!feof(archivo))
+    {
+        fgets(linea,100, archivo);
+        token = strtok(linea,",");
+        if(*token != 10)
+        {
+            vCliente[longitud].Id = atoi(token);
+            token = strtok(NULL,",");
+            strcpy(vCliente[longitud].nombre,token);
+            token = strtok(NULL,",");
+            strcpy(vCliente[longitud].apellido,token);
+            token = strtok(NULL,",");
+            vCliente[longitud].dni = atoi(token);
+            token = strtok(NULL,",");
+            vCliente[longitud].edad = atoi(token);
+            token = strtok(NULL,",");
+            vCliente[longitud].limiteCredito = atof(token);
+        }
+        longitud++;
+    }
+    fclose(archivo);
 }
