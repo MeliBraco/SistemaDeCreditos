@@ -503,3 +503,31 @@ int DeudaActual(struct Cliente *nuevoCliente, float monto)
 
     return total + monto;
 }
+
+void sobrescribirArchivo(struct Cliente *nuevoCliente){
+
+    FILE * archivo;
+
+    archivo = fopen("Archivo1.csv", "w");
+
+    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d",
+            nuevoCliente->Id,
+            nuevoCliente->apellido,
+            nuevoCliente->nombre,
+            nuevoCliente->edad,
+            nuevoCliente->dni,
+            nuevoCliente->limiteCredito,
+            nuevoCliente->ListaCreditos[0],
+            nuevoCliente->ListaCreditos[1],
+            nuevoCliente->ListaCreditos[2]);
+
+    fclose(archivo);
+}
+
+void exepcionId(int encontro, int id)
+{
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el Cliente con ID: %d", id);
+    }
+}
