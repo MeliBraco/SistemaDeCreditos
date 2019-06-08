@@ -31,11 +31,38 @@ void ingresar(){
 
     strcpy(nuevoCliente.nombre, nombreAux);
 
-    nuevoCliente.credito = 0;
+    inicializacionCredito(&nuevoCliente);
+
+    nuevoCliente.limiteCredito = limiteCredito(&nuevoCliente);
 
     guardarEnArchivo(&nuevoCliente);
 
-    printf("El Empleado fue guardado correctamente \n\n");
+    printf("El Empleado fue ingresado correctamente \n\n");
+}
+
+void inicializacionCredito(struct Cliente *nuevoCliente)
+{
+    int longitudCreditos = 3;
+
+    for(int i = 0; i < longitudCreditos; i++)
+    {
+        nuevoCliente->ListaCreditos[i] = 0;
+    }
+}
+
+float limiteCredito(struct Cliente *nuevoCliente)
+{
+    float limite;
+
+    if(nuevoCliente->refCliente == NULL)
+    {
+        limite = 1000;
+    }
+    else {
+        limite = 2000;
+    }
+
+    return limite;
 }
 
 void guardarEnArchivo(struct Cliente *nuevoCliente){
@@ -44,25 +71,16 @@ void guardarEnArchivo(struct Cliente *nuevoCliente){
 
     archivo = fopen("Archivo1.csv", "a");
 
-    char auxId[900];
-    sprintf(auxId, "%d", nuevoCliente->Id);
-
-    char auxEdad[3];
-    sprintf(auxEdad, "%d", nuevoCliente->edad);
-
-    char auxDNI[100];
-    sprintf(auxDNI, "%d", nuevoCliente->dni);
-
-    char auxCredito[100];
-    sprintf(auxCredito, "%d", nuevoCliente->credito);
-
-    fprintf(archivo,  "\n%d,%s,%s,%d,%d,%d",
+    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d",
              nuevoCliente->Id,
              nuevoCliente->apellido,
              nuevoCliente->nombre,
              nuevoCliente->edad,
              nuevoCliente->dni,
-             nuevoCliente->credito);
+             nuevoCliente->limiteCredito,
+             nuevoCliente->ListaCreditos[0],
+             nuevoCliente->ListaCreditos[1],
+             nuevoCliente->ListaCreditos[2]);
 
     fclose(archivo);
 }
@@ -73,48 +91,99 @@ void getClientes()
 
     struct Cliente vCliente[100];
 
-    char linea[100];
+    char linea[200];
 
     char *token;
 
-    int longitud=1;
-
-    int encontro = 0;
+    int longitud = 0;
 
     while(!feof(archivo))
     {
         fgets(linea,100, archivo);
 
-        token = strtok(linea,",");
-
+        token = strtok(linea, ",");
         if(*token != 10)
         {
             vCliente[longitud].Id = atoi(token);
 
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].nombre,token);
+            token = strtok(NULL, ",");
+            strcpy(vCliente[longitud].nombre, token);
 
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].apellido,token);
+            token = strtok(NULL, ",");
+            strcpy(vCliente[longitud].apellido, token);
 
-            token = strtok(NULL,",");
-            vCliente[longitud].dni = atoi(token);
-
-            token = strtok(NULL,",");
+            token = strtok(NULL, ",");
             vCliente[longitud].edad = atoi(token);
 
-            token = strtok(NULL,",");
-            vCliente[longitud].credito = atof(token);
+            token = strtok(NULL, ",");
+            vCliente[longitud].dni = atoi(token);
 
+            token = strtok(NULL, ",");
+            vCliente[longitud].limiteCredito = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].ListaCreditos[0] = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].ListaCreditos[1] = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].ListaCreditos[2] = atoi(token);
+
+            longitud++;
         }
-        longitud++;
     }
+
     fclose(archivo);
 
     for(int i = 0; i<longitud; i++)
     {
         imprimirCliente(vCliente[i]);
+
     }
+}
+
+void imprimirCliente(struct Cliente aImprimir){
+
+    if(aImprimir.Id != 0)
+    {
+        printf("-ID = %d \n", aImprimir.Id);
+        printf("-Apellido = %s \n", aImprimir.apellido);
+        printf("-Nombre = %s \n", aImprimir.nombre);
+        printf("-Edad = %d \n", aImprimir.edad);
+        printf("-DNI = %d \n", aImprimir.dni);
+        printf("-LIMITE DE CREDITO DISPONIBLE = %f \n", aImprimir.limiteCredito);
+
+        for (int i = 0; i < 3; i++) {
+
+            if (aImprimir.ListaCreditos[i] != 0) {
+
+                printf("-%d)%s ----> monto $%d \n",i,tipoCredito(i),aImprimir.ListaCreditos[i]);
+            }
+        }
+        printf("\n");
+    }
+}
+
+char * tipoCredito(int i){
+
+    char * nombre =  malloc(30);
+
+    if(i == 0)
+    {
+        strcpy(nombre, "Credito Hipotecario");
+
+    }
+    else if(i == 1)
+    {
+        strcpy(nombre, "Credito Automotor");
+
+    }else if(i == 2)
+    {
+        strcpy(nombre, "Otros Credito");
+    }
+
+    return nombre;
 }
 
 void buscarClientePorId()
@@ -158,9 +227,6 @@ void buscarClientePorId()
             token = strtok(NULL,",");
             vCliente[longitud].edad = atoi(token);
 
-            token = strtok(NULL,",");
-            vCliente[longitud].credito = atof(token);
-
         }
         longitud++;
     }
@@ -178,11 +244,7 @@ void buscarClientePorId()
             }
         }
     }
-
-    if(encontro == 0)
-    {
-        printf("no se encontraron resultados para el ID: %d", id);
-    }
+    exepcionId(encontro, id);
 }
 
 void buscarClientePorNombre()
@@ -226,9 +288,6 @@ void buscarClientePorNombre()
 
             token = strtok(NULL,",");
             vCliente[longitud].edad = atoi(token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].credito = atof(token);
 
         }
         longitud++;
@@ -292,9 +351,6 @@ void buscarClientePorEdad()
             token = strtok(NULL,",");
             vCliente[longitud].edad = atoi(token);
 
-            token = strtok(NULL,",");
-            vCliente[longitud].credito = atof(token);
-
         }
         longitud++;
     }
@@ -316,15 +372,107 @@ void buscarClientePorEdad()
     }
 }
 
-void imprimirCliente(struct Cliente aImprimir){
+void solicitarCredito()
+{
+    //Deserealizar
 
-    printf("-Legajo = %d \n", aImprimir.Id);
-    printf("-Apellido = %s \n", aImprimir.apellido);
-    printf("-Nombre = %s \n", aImprimir.nombre);
-    printf("-Edad = %d \n", aImprimir.edad);
-    printf("-DNI = %d \n", aImprimir.dni);
-    printf("-Credito = %d \n", aImprimir.credito);
-    printf("\n");
+    FILE *archivo = fopen("Archivo1.csv", "rt");
 
+    struct Cliente vCliente[100];
+
+    char linea[100];
+
+    char *token;
+
+    int longitud = 0;
+
+    int encontro = 0;
+
+    while(!feof(archivo))
+    {
+        fgets(linea,100, archivo);
+
+        token = strtok(linea, ",");
+        if(*token != 10)
+        {
+            vCliente[longitud].Id = atoi(token);
+
+            token = strtok(NULL, ",");
+            strcpy(vCliente[longitud].nombre, token);
+
+            token = strtok(NULL, ",");
+            strcpy(vCliente[longitud].apellido, token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].edad = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].dni = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].limiteCredito = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].ListaCreditos[0] = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].ListaCreditos[1] = atoi(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].ListaCreditos[2] = atoi(token);
+
+            longitud++;
+        }
+    }
+
+    fclose(archivo);
+
+    //solicitar credito
+
+    int id;
+
+    float monto;
+
+    printf("Ingresar el Id del Cliente:\n");
+    scanf("%d", &id);
+
+    printf("Ingresar el monto del Credito:\n");
+    scanf("%f", &monto);
+
+    int tipoCredito = menuTipoCredito()-1;
+
+    int totalDeuda;
+
+    for(int i = 0; i<longitud; i++)
+    {
+        if(encontro == 0)
+        {
+            if(vCliente[i].Id == id)
+            {
+                totalDeuda = DeudaActual(&vCliente[i], monto);
+
+                if(vCliente[i].limiteCredito >= totalDeuda)
+                {
+                    vCliente[i].ListaCreditos[tipoCredito] = monto;
+
+                    vCliente[i].limiteCredito = vCliente[i].limiteCredito - monto;
+                } else{
+
+                    printf("El Monto ingresado es insuficiente para solicitar un credito. Limite disponible: %f"
+                            ,vCliente[i].limiteCredito - (totalDeuda - monto));
+                }
+                encontro = 1;
+            }
+        }
+    }
+
+    exepcionId(encontro, id);
+
+    if(encontro == 1)
+    {
+        for (int i = 0; i < longitud; i++) {
+            sobrescribirArchivo(&vCliente[i]);
+        }
+    }
 }
 
