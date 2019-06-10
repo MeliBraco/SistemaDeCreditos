@@ -71,16 +71,16 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             vCliente[longitud].dni = atoi(token);
 
             token = strtok(NULL, ",");
-            vCliente[longitud].limiteCredito = atoi(token);
+            vCliente[longitud].limiteCredito = atof(token);
 
             token = strtok(NULL, ",");
-            vCliente[longitud].ListaCreditos[0] = atoi(token);
+            vCliente[longitud].ListaCreditos[0] = atof(token);
 
             token = strtok(NULL, ",");
-            vCliente[longitud].ListaCreditos[1] = atoi(token);
+            vCliente[longitud].ListaCreditos[1] = atof(token);
 
             token = strtok(NULL, ",");
-            vCliente[longitud].ListaCreditos[2] = atoi(token);
+            vCliente[longitud].ListaCreditos[2] = atof(token);
 
             longitud++;
         }
@@ -415,6 +415,42 @@ void pagarCredito() {
     exepcionId(encontro, id);
 
     actualizarArchivo(encontro, longitud, vCliente);
+}
+
+void listarCreditos(){
+
+    struct Cliente vCliente[100];
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int id;
+
+    int encontro = 0;
+
+    printf("Ingresar el Id del Cliente:\n");
+    scanf("%d", &id);
+
+    printf("Los creditos vigente para el id %d:\n", id);
+
+    for(int i = 0; i<longitud; i++)
+    {
+        if(encontro == 0)
+        {
+            if(vCliente[i].Id == id)
+            {
+
+                printf("CREDITO HIPOTECARIO: $%d\n" ,vCliente[i].ListaCreditos[0]);
+
+                printf("CREDITO AUTOMOTOR: $%d\n" ,vCliente[i].ListaCreditos[1]);
+
+                printf("OTROS CREDITOS: $%d\n" ,vCliente[i].ListaCreditos[2]);
+
+                encontro = 1;
+            }
+        }
+    }
 }
 
 int menuTipoCredito()

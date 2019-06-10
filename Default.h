@@ -51,3 +51,5 @@ void cancelarCredito();
 void actualizarArchivo(int, int, struct Cliente *vCliente);
 
 void pagarCredito();
+
+void listarCreditos();
