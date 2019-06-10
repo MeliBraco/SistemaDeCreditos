@@ -3,7 +3,6 @@
 
 int main() {
 
-    listarCreditos();
-
+pagarCredito();
     return 0;
 }

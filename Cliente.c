@@ -345,7 +345,7 @@ void cancelarCredito() {
 
                 vCliente[i].ListaCreditos[valorTipoCredito] = 0;
 
-                printf("Su Limite Actual es de:: %f \n ", vCliente[i].limiteCredito, nombreTipoCredito);
+                printf("Su Limite Actual es de: $%f\nDeuda %s: $%d ", vCliente[i].limiteCredito, nombreTipoCredito,vCliente[i].ListaCreditos[valorTipoCredito]);
 
                 encontro = 1;
 
@@ -399,7 +399,7 @@ void pagarCredito() {
 
                 vCliente[i].ListaCreditos[valorTipoCredito] = vCliente[i].ListaCreditos[valorTipoCredito] - monto;
 
-                printf("Su Limite Actual es de: $%f \n", vCliente[i].limiteCredito, nombreTipoCredito);
+                printf("Su Limite Actual es de: $%f\nDeuda %s: $%d ", vCliente[i].limiteCredito, nombreTipoCredito,vCliente[i].ListaCreditos[valorTipoCredito]);
 
                 encontro = 1;
             }
@@ -440,7 +440,6 @@ void listarCreditos(){
         {
             if(vCliente[i].Id == id)
             {
-
                 printf("CREDITO HIPOTECARIO: $%d\n" ,vCliente[i].ListaCreditos[0]);
 
                 printf("CREDITO AUTOMOTOR: $%d\n" ,vCliente[i].ListaCreditos[1]);
