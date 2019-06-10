@@ -40,51 +40,6 @@ void ingresar(){
     printf("El Empleado fue ingresado correctamente \n\n");
 }
 
-void inicializacionCredito(struct Cliente *nuevoCliente)
-{
-    int longitudCreditos = 3;
-
-    for(int i = 0; i < longitudCreditos; i++)
-    {
-        nuevoCliente->ListaCreditos[i] = 0;
-    }
-}
-
-float limiteCredito(struct Cliente *nuevoCliente)
-{
-    float limite;
-
-    if(nuevoCliente->refCliente == NULL)
-    {
-        limite = 1000;
-    }
-    else {
-        limite = 2000;
-    }
-
-    return limite;
-}
-
-void guardarEnArchivo(struct Cliente *nuevoCliente){
-
-    FILE * archivo;
-
-    archivo = fopen("Archivo1.csv", "a");
-
-    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d",
-             nuevoCliente->Id,
-             nuevoCliente->apellido,
-             nuevoCliente->nombre,
-             nuevoCliente->edad,
-             nuevoCliente->dni,
-             nuevoCliente->limiteCredito,
-             nuevoCliente->ListaCreditos[0],
-             nuevoCliente->ListaCreditos[1],
-             nuevoCliente->ListaCreditos[2]);
-
-    fclose(archivo);
-}
-
 struct Cliente* cargarClientes(struct Cliente* vCliente){
 
     FILE *archivo = fopen("Archivo1.csv", "rt");
@@ -126,8 +81,9 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[2] = atoi(token);
+
+            longitud++;
         }
-        longitud++;
     }
     fclose(archivo);
 }
@@ -151,18 +107,9 @@ int getCantidadCliente(struct Cliente* vCliente){
         if(*token != 10)
         {
             vCliente[longitud].Id = atoi(token);
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].nombre,token);
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].apellido,token);
-            token = strtok(NULL,",");
-            vCliente[longitud].dni = atoi(token);
-            token = strtok(NULL,",");
-            vCliente[longitud].edad = atoi(token);
-            token = strtok(NULL,",");
-            vCliente[longitud].limiteCredito = atof(token);
+
+            longitud++;
         }
-        longitud++;
     }
     fclose(archivo);
 
@@ -206,26 +153,8 @@ void imprimirCliente(struct Cliente aImprimir){
     }
 }
 
-char * tipoCredito(int i){
 
-    char * nombre =  malloc(30);
-
-    if(i == 0)
-    {
-        strcpy(nombre, "Credito Hipotecario");
-
-    }
-    else if(i == 1)
-    {
-        strcpy(nombre, "Credito Automotor");
-
-    }else if(i == 2)
-    {
-        strcpy(nombre, "Otros Credito");
-    }
-
-    return nombre;
-}
+//BUSCAR
 
 void buscarClientePorId()
 {
@@ -321,6 +250,19 @@ void buscarClientePorEdad()
     }
 }
 
+
+//CREDITOS
+
+void inicializacionCredito(struct Cliente *nuevoCliente)
+{
+    int longitudCreditos = 3;
+
+    for(int i = 0; i < longitudCreditos; i++)
+    {
+        nuevoCliente->ListaCreditos[i] = 0;
+    }
+}
+
 void solicitarCredito()
 {
     struct Cliente vCliente[100];
@@ -391,22 +333,34 @@ void cancelarCredito() {
 
     char *nombreTipoCredito = tipoCredito(valorTipoCredito);
 
-    printf("Usted va a pagar el total del %s\n", nombreTipoCredito);
+    printf("Pagara el total del %s\n", nombreTipoCredito);
 
     for (int i = 0; i < longitud; i++) {
 
-        if (encontro == 0 && vCliente[i].Id == id){
+        if (encontro == 0 && vCliente[i].Id == id)
+        {
+            if(vCliente[i].ListaCreditos[valorTipoCredito] != 0 )
+            {
+                vCliente[i].limiteCredito =  vCliente[i].limiteCredito + vCliente[i].ListaCreditos[valorTipoCredito];
 
-            vCliente[i].limiteCredito =  vCliente[i].limiteCredito + vCliente[i].ListaCreditos[valorTipoCredito];
+                vCliente[i].ListaCreditos[valorTipoCredito] = 0;
 
-            vCliente[i].ListaCreditos[valorTipoCredito] = 0;
+                printf("Su Limite Actual es de:: %f \n ", vCliente[i].limiteCredito, nombreTipoCredito);
 
-            printf("Su nuevo limite disponible es de %f", vCliente[i].limiteCredito );
+                encontro = 1;
 
-            encontro = 1;
+            }else{
+
+                printf("NO posee deuda" );
+
+                encontro = 1;
+            }
         }
+
     }
     exepcionId(encontro, id);
+
+    actualizarArchivo(encontro, longitud, vCliente);
 }
 
 int menuTipoCredito()
@@ -424,6 +378,42 @@ int menuTipoCredito()
     return opciones;
 }
 
+float limiteCredito(struct Cliente *nuevoCliente)
+{
+    float limite;
+
+    if(nuevoCliente->refCliente == NULL)
+    {
+        limite = 1000;
+    }
+    else {
+        limite = 2000;
+    }
+
+    return limite;
+}
+
+char * tipoCredito(int i){
+
+    char * nombre =  malloc(30);
+
+    if(i == 0)
+    {
+        strcpy(nombre, "Credito Hipotecario");
+
+    }
+    else if(i == 1)
+    {
+        strcpy(nombre, "Credito Automotor");
+
+    }else if(i == 2)
+    {
+        strcpy(nombre, "Otros Credito");
+    }
+
+    return nombre;
+}
+
 int DeudaActual(struct Cliente *nuevoCliente, float monto)
 {
     int total = 0;
@@ -435,6 +425,40 @@ int DeudaActual(struct Cliente *nuevoCliente, float monto)
     }
 
     return total + monto;
+}
+
+
+//EXCEPCIONES
+
+void exepcionId(int encontro, int id)
+{
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el Cliente con ID: %d", id);
+    }
+}
+
+
+//MANEJO DE ARCHIVOS
+
+void guardarEnArchivo(struct Cliente *nuevoCliente){
+
+    FILE * archivo;
+
+    archivo = fopen("Archivo1.csv", "a");
+
+    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d",
+            nuevoCliente->Id,
+            nuevoCliente->apellido,
+            nuevoCliente->nombre,
+            nuevoCliente->edad,
+            nuevoCliente->dni,
+            nuevoCliente->limiteCredito,
+            nuevoCliente->ListaCreditos[0],
+            nuevoCliente->ListaCreditos[1],
+            nuevoCliente->ListaCreditos[2]);
+
+    fclose(archivo);
 }
 
 void sobrescribirArchivo(struct Cliente *nuevoCliente){
@@ -455,14 +479,6 @@ void sobrescribirArchivo(struct Cliente *nuevoCliente){
             nuevoCliente->ListaCreditos[2]);
 
     fclose(archivo);
-}
-
-void exepcionId(int encontro, int id)
-{
-    if(encontro == 0)
-    {
-        printf("no se encontraron resultados para el Cliente con ID: %d", id);
-    }
 }
 
 void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)

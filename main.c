@@ -3,7 +3,7 @@
 
 int main() {
 
-    cancelarCredito();
+
 
     return 0;
 }
