@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include "Cliente.c"
+#include "Creditos.c"
+#include "Excepciones.c"
+#include "Archivo.c"
 
 int main() {
 
-pagarCredito();
+    buscarClientePorId();
+
     return 0;
 }
