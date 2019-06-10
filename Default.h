@@ -49,3 +49,5 @@ int getCantiadClientes(struct Cliente* vCliente);
 void cancelarCredito();
 
 void actualizarArchivo(int, int, struct Cliente *vCliente);
+
+void pagarCredito();

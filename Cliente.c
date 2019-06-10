@@ -363,6 +363,60 @@ void cancelarCredito() {
     actualizarArchivo(encontro, longitud, vCliente);
 }
 
+void pagarCredito() {
+
+    struct Cliente vCliente[100];
+
+    int encontro = 0;
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int id;
+
+    float monto;
+
+    printf("Ingresar el Id del Cliente:\n");
+    scanf("%d", &id);
+
+    printf("Ingresar el monto del Credito:\n");
+    scanf("%f", &monto);
+
+    int valorTipoCredito = menuTipoCredito() - 1;
+
+    char *nombreTipoCredito = tipoCredito(valorTipoCredito);
+
+    printf("Se pagara $%f del %s\n", monto,nombreTipoCredito);
+
+    for (int i = 0; i < longitud; i++)
+    {
+        if (encontro == 0 && vCliente[i].Id == id)
+        {
+            if(vCliente[i].ListaCreditos[valorTipoCredito] != 0 && monto <= vCliente[i].ListaCreditos[valorTipoCredito]){
+
+                vCliente[i].limiteCredito =  vCliente[i].limiteCredito + monto;
+
+                vCliente[i].ListaCreditos[valorTipoCredito] = vCliente[i].ListaCreditos[valorTipoCredito] - monto;
+
+                printf("Su Limite Actual es de: $%f \n", vCliente[i].limiteCredito, nombreTipoCredito);
+
+                encontro = 1;
+            }
+            else{
+
+                printf("ERROR al pagar credito, no posee deuda o el monto a abonar es mayor al total" );
+
+                encontro = 1;
+            }
+        }
+
+    }
+    exepcionId(encontro, id);
+
+    actualizarArchivo(encontro, longitud, vCliente);
+}
+
 int menuTipoCredito()
 {
     int opciones;
