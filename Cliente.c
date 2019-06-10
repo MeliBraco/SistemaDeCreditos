@@ -85,13 +85,11 @@ void guardarEnArchivo(struct Cliente *nuevoCliente){
     fclose(archivo);
 }
 
-void getClientes()
-{
+struct Cliente* cargarClientes(struct Cliente* vCliente){
+
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
-    struct Cliente vCliente[100];
-
-    char linea[200];
+    char linea[100];
 
     char *token;
 
@@ -102,8 +100,7 @@ void getClientes()
         fgets(linea,100, archivo);
 
         token = strtok(linea, ",");
-        if(*token != 10)
-        {
+        if(*token != 10) {
             vCliente[longitud].Id = atoi(token);
 
             token = strtok(NULL, ",");
@@ -129,12 +126,56 @@ void getClientes()
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[2] = atoi(token);
-
-            longitud++;
         }
+        longitud++;
     }
-
     fclose(archivo);
+}
+
+int getCantidadCliente(struct Cliente* vCliente){
+
+    FILE *archivo = fopen("Archivo1.csv", "rt");
+
+    char linea[100];
+
+    char *token;
+
+    int longitud = 0;
+
+    while(!feof(archivo))
+    {
+        fgets(linea,100, archivo);
+
+        token = strtok(linea,",");
+
+        if(*token != 10)
+        {
+            vCliente[longitud].Id = atoi(token);
+            token = strtok(NULL,",");
+            strcpy(vCliente[longitud].nombre,token);
+            token = strtok(NULL,",");
+            strcpy(vCliente[longitud].apellido,token);
+            token = strtok(NULL,",");
+            vCliente[longitud].dni = atoi(token);
+            token = strtok(NULL,",");
+            vCliente[longitud].edad = atoi(token);
+            token = strtok(NULL,",");
+            vCliente[longitud].limiteCredito = atof(token);
+        }
+        longitud++;
+    }
+    fclose(archivo);
+
+    return longitud;
+}
+
+void getClientes()
+{
+    struct Cliente vCliente[100];
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
 
     for(int i = 0; i<longitud; i++)
     {
@@ -158,7 +199,7 @@ void imprimirCliente(struct Cliente aImprimir){
 
             if (aImprimir.ListaCreditos[i] != 0) {
 
-                printf("-%d)%s ----> monto $%d \n",i,tipoCredito(i),aImprimir.ListaCreditos[i]);
+                printf("-%d)%s ----> monto $%d \n",i+1,tipoCredito(i),aImprimir.ListaCreditos[i]);
             }
         }
         printf("\n");
@@ -188,15 +229,11 @@ char * tipoCredito(int i){
 
 void buscarClientePorId()
 {
-    FILE *archivo = fopen("Archivo1.csv", "rt");
-
     struct Cliente vCliente[100];
 
-    char linea[100];
+    cargarClientes(vCliente);
 
-    char *token;
-
-    int longitud = 0;
+    int longitud = getCantidadCliente(vCliente);
 
     int encontro = 0;
 
@@ -204,33 +241,6 @@ void buscarClientePorId()
 
     printf("Ingresar Id:\n");
     scanf("%d", &id);
-
-    while(!feof(archivo))
-    {
-        fgets(linea,100, archivo);
-
-        token = strtok(linea,",");
-
-        if(*token != 10)
-        {
-            vCliente[longitud].Id = atoi(token);
-
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].nombre,token);
-
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].apellido,token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].dni = atoi(token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].edad = atoi(token);
-
-        }
-        longitud++;
-    }
-    fclose(archivo);
 
     for(int i = 0; i<longitud; i++)
     {
@@ -249,42 +259,42 @@ void buscarClientePorId()
 
 void buscarClientePorNombre()
 {
-
     struct Cliente vCliente[100];
 
     cargarClientes(vCliente);
 
-    int longitud = 0;
+    int longitud = getCantidadCliente(vCliente);
 
     int encontro = 0;
 
     char nombre [100];
+
+    printf("Ingresar Nombre:\n");
+    scanf("%s", nombre);
 
     for(int i = 0; i<longitud; i++)
     {
         if(strcmp(vCliente[i].nombre , nombre) == 0)
         {
             imprimirCliente(vCliente[i]);
+
+            encontro = 1;
         }
     }
 
     if(encontro == 0)
     {
-        printf("no se encontraron resultados para el Nombre: %s", nombre);
+        printf("no se encontraron resultados para el Nombre:%s", nombre);
     }
 }
 
 void buscarClientePorEdad()
 {
-    FILE *archivo = fopen("Archivo1.csv", "rt");
-
     struct Cliente vCliente[100];
 
-    char linea[100];
+    cargarClientes(vCliente);
 
-    char *token;
-
-    int longitud = 0;
+    int longitud = getCantidadCliente(vCliente);
 
     int encontro = 0;
 
@@ -294,33 +304,6 @@ void buscarClientePorEdad()
     scanf("%d", &edadA);
     printf("Mayor Valor:");
     scanf("%d", &edadB);
-
-    while(!feof(archivo))
-    {
-        fgets(linea,100, archivo);
-
-        token = strtok(linea,",");
-
-        if(*token != 10)
-        {
-            vCliente[longitud].Id = atoi(token);
-
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].nombre,token);
-
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].apellido,token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].dni = atoi(token);
-
-            token = strtok(NULL,",");
-            vCliente[longitud].edad = atoi(token);
-
-        }
-        longitud++;
-    }
-    fclose(archivo);
 
     for(int i = 0; i<longitud; i++)
     {
@@ -340,60 +323,13 @@ void buscarClientePorEdad()
 
 void solicitarCredito()
 {
-    //Deserealizar
-
-    FILE *archivo = fopen("Archivo1.csv", "rt");
-
     struct Cliente vCliente[100];
-
-    char linea[100];
-
-    char *token;
-
-    int longitud = 0;
 
     int encontro = 0;
 
-    while(!feof(archivo))
-    {
-        fgets(linea,100, archivo);
+    cargarClientes(vCliente);
 
-        token = strtok(linea, ",");
-        if(*token != 10)
-        {
-            vCliente[longitud].Id = atoi(token);
-
-            token = strtok(NULL, ",");
-            strcpy(vCliente[longitud].nombre, token);
-
-            token = strtok(NULL, ",");
-            strcpy(vCliente[longitud].apellido, token);
-
-            token = strtok(NULL, ",");
-            vCliente[longitud].edad = atoi(token);
-
-            token = strtok(NULL, ",");
-            vCliente[longitud].dni = atoi(token);
-
-            token = strtok(NULL, ",");
-            vCliente[longitud].limiteCredito = atoi(token);
-
-            token = strtok(NULL, ",");
-            vCliente[longitud].ListaCreditos[0] = atoi(token);
-
-            token = strtok(NULL, ",");
-            vCliente[longitud].ListaCreditos[1] = atoi(token);
-
-            token = strtok(NULL, ",");
-            vCliente[longitud].ListaCreditos[2] = atoi(token);
-
-            longitud++;
-        }
-    }
-
-    fclose(archivo);
-
-    //solicitar credito
+    int longitud = getCantidadCliente(vCliente);
 
     int id;
 
@@ -431,22 +367,53 @@ void solicitarCredito()
             }
         }
     }
-
     exepcionId(encontro, id);
 
-    if(encontro == 1)
-    {
-        for (int i = 0; i < longitud; i++) {
-            sobrescribirArchivo(&vCliente[i]);
+    actualizarArchivo(encontro, longitud, vCliente);
+}
+
+void cancelarCredito() {
+
+    struct Cliente vCliente[100];
+
+    int encontro = 0;
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int id;
+
+    printf("Ingresar el Id del Cliente:\n");
+    scanf("%d", &id);
+
+    int valorTipoCredito = menuTipoCredito() - 1;
+
+    char *nombreTipoCredito = tipoCredito(valorTipoCredito);
+
+    printf("Usted va a pagar el total del %s\n", nombreTipoCredito);
+
+    for (int i = 0; i < longitud; i++) {
+
+        if (encontro == 0 && vCliente[i].Id == id){
+
+            vCliente[i].limiteCredito =  vCliente[i].limiteCredito + vCliente[i].ListaCreditos[valorTipoCredito];
+
+            vCliente[i].ListaCreditos[valorTipoCredito] = 0;
+
+            printf("Su nuevo limite disponible es de %f", vCliente[i].limiteCredito );
+
+            encontro = 1;
         }
     }
+    exepcionId(encontro, id);
 }
 
 int menuTipoCredito()
 {
     int opciones;
 
-    printf("\nTIPO DE CREDITOS DISPONIBLES"
+    printf("\nTIPO DE CREDITOS"
            "\n1- Credito Hipotecario"
            "\n2- Credito Automotor"
            "\n3- Otros Creditos"
@@ -498,37 +465,18 @@ void exepcionId(int encontro, int id)
     }
 }
 
-
-void cargarClientes(struct Cliente* vCliente){
-
-    FILE *archivo = fopen("Archivo1.csv", "rt");
-    char linea[100];
-    char *token;
-    int longitud=1;
-    while(!feof(archivo))
+void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
+{
+    if(encontro == 1)
     {
-        fgets(linea,100, archivo);
-        token = strtok(linea,",");
-        if(*token != 10)
-        {
-            vCliente[longitud].Id = atoi(token);
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].nombre,token);
-            token = strtok(NULL,",");
-            strcpy(vCliente[longitud].apellido,token);
-            token = strtok(NULL,",");
-            vCliente[longitud].dni = atoi(token);
-            token = strtok(NULL,",");
-            vCliente[longitud].edad = atoi(token);
-            token = strtok(NULL,",");
-            vCliente[longitud].limiteCredito = atof(token);
+        for (int i = 0; i < longitud; i++) {
+
+            if(i == 0) {
+                sobrescribirArchivo(&vCliente[i]);
+            }
+            else{
+                guardarEnArchivo(&vCliente[i]);
+            }
         }
-        longitud++;
-    }
-    fclose(archivo);
-    int i = 0;
-    while (i>3){
-        imprimirCliente(vCliente[i]);
-        i++;
     }
 }

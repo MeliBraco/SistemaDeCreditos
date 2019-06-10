@@ -2,6 +2,8 @@
 #include "Cliente.c"
 
 int main() {
-    buscarClientePorNombre();
+
+    cancelarCredito();
+
     return 0;
 }

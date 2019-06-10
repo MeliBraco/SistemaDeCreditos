@@ -42,4 +42,10 @@ void sobrescribirArchivo(struct Cliente *);
 
 void exepcionId(int, int);
 
-struct Cliente* cargarClientes(FILE *csv, struct Cliente* vCliente);
+struct Cliente* cargarClientes(struct Cliente* vCliente);
+
+int getCantiadClientes(struct Cliente* vCliente);
+
+void cancelarCredito();
+
+void actualizarArchivo(int, int, struct Cliente *vCliente);
