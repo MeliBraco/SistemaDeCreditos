@@ -58,7 +58,7 @@ void solicitarCredito()
             }
         }
     }
-    exepcionId(encontro, id);
+    encontroId(encontro, id);
 
     actualizarArchivo(encontro, longitud, vCliente);
 }
@@ -107,7 +107,7 @@ void cancelarCredito() {
         }
 
     }
-    exepcionId(encontro, id);
+    encontroId(encontro, id);
 
     actualizarArchivo(encontro, longitud, vCliente);
 }
@@ -161,7 +161,7 @@ void pagarCredito() {
         }
 
     }
-    exepcionId(encontro, id);
+    encontroId(encontro, id);
 
     actualizarArchivo(encontro, longitud, vCliente);
 }
@@ -255,6 +255,7 @@ char * tipoCredito(int i){
 int DeudaActual(struct Cliente *nuevoCliente, float monto)
 {
     int total = 0;
+
     int longitudCredito = 3;
 
     for(int j = 0; j<longitudCredito; j++)

@@ -40,7 +40,7 @@ int DeudaActual(struct Cliente *, float);
 
 void sobrescribirArchivo(struct Cliente *);
 
-void exepcionId(int, int);
+void encontroId(int, int);
 
 struct Cliente* cargarClientes(struct Cliente* vCliente);
 
@@ -53,3 +53,7 @@ void actualizarArchivo(int, int, struct Cliente *vCliente);
 void pagarCredito();
 
 void listarCreditos();
+
+void Salir();
+
+void menu();

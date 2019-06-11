@@ -59,10 +59,10 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             vCliente[longitud].Id = atoi(token);
 
             token = strtok(NULL, ",");
-            strcpy(vCliente[longitud].nombre, token);
+            strcpy(vCliente[longitud].apellido, token);
 
             token = strtok(NULL, ",");
-            strcpy(vCliente[longitud].apellido, token);
+            strcpy(vCliente[longitud].nombre, token);
 
             token = strtok(NULL, ",");
             vCliente[longitud].edad = atoi(token);
@@ -165,6 +165,8 @@ void buscarClientePorId()
 
     int id;
 
+    char tipoDatoValido[50];
+
     printf("Ingresar Id:\n");
     scanf("%d", &id);
 
@@ -180,7 +182,7 @@ void buscarClientePorId()
             }
         }
     }
-    exepcionId(encontro, id);
+    encontroId(encontro, id);
 }
 
 void buscarClientePorNombre()
