@@ -8,7 +8,9 @@ struct Cliente{
     unsigned int dni;
     int ListaCreditos [3];
     float limiteCredito;
+    int refClienteId;
     struct Cliente * refCliente;
+
 };
 
 
@@ -20,17 +22,23 @@ void guardarEnArchivo(struct Cliente *);
 
 void getClientes();
 
+void referirCliente();
+
 char * tipoCredito(int);
 
 float limiteCredito(struct Cliente *);
 
 struct Cliente * parsearCliente();
 
+struct Cliente* buscarReferidoPorId(int id);
+
 void buscarClientePorId();
 
 void buscarClientePorNombre();
 
 void imprimirCliente(struct Cliente);
+
+void imprimirReferido(struct Cliente refAimprimir);
 
 void solicitarCredito();
 
