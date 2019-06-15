@@ -30,7 +30,7 @@ float limiteCredito(struct Cliente *);
 
 struct Cliente * parsearCliente();
 
-struct Cliente* buscarReferidoPorId(int id);
+struct Cliente* buscarReferidoPorId(int id, struct Cliente* vCliente);
 
 void buscarClientePorId();
 

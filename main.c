@@ -3,6 +3,7 @@
 #include "Creditos.c"
 #include "Excepciones.c"
 #include "Archivo.c"
+#include "Default.h"
 
 int main() {
 

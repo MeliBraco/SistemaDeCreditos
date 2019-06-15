@@ -207,19 +207,20 @@ void imprimirCliente(struct Cliente aImprimir){
     }
 }
 void imprimirReferido(struct Cliente refAimprimir){
+
+    struct Cliente vCliente[100];
+
+    cargarClientes(vCliente);
+
     if (refAimprimir.refClienteId != 0){
-        refAimprimir.refCliente = buscarReferidoPorId(refAimprimir.refClienteId);
+        refAimprimir.refCliente = buscarReferidoPorId(refAimprimir.refClienteId, vCliente);
         printf("- CLIENTE REFERIDO : %c", refAimprimir.refCliente->nombre);
     }else{
         printf("ESTE CLIENTE NO TIENE REFERIDOS");
     }
 }
-struct Cliente* buscarReferidoPorId(int id)
+struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
 {
-    struct Cliente vCliente[100];
-
-    cargarClientes(vCliente);
-
     int longitud = getCantidadCliente(vCliente);
 
     for(int i = 0; i<longitud; i++)
