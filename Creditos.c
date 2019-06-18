@@ -221,13 +221,13 @@ float limiteCredito(struct Cliente *nuevoCliente)
 {
     float limite;
 
-/*    if(nuevoCliente->refCliente == NULL)
+    if(nuevoCliente->refCliente == NULL)
     {
         limite = 1000;
     }
     else {
         limite = 2000;
-    }*/
+    }
 
     return limite;
 }

@@ -71,7 +71,7 @@ void menu() {
                 break;
 
             case 10:
-                //falta
+                referirCliente();
                 break;
 
             case 11:
@@ -84,7 +84,6 @@ void menu() {
 
     }while(opciones != 11);
 }
-
 
 void Salir(){
 

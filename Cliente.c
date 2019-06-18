@@ -33,9 +33,9 @@ void ingresar(){
 
     strcpy(nuevoCliente.nombre, nombreAux);
 
-     //nuevoCliente.refClienteId = 0;
+     nuevoCliente.refClienteId = 0;
 
-    //struct Cliente *referido = NULL;
+    struct Cliente *referido = NULL;
 
     inicializacionCredito(&nuevoCliente);
 
@@ -79,8 +79,8 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             token = strtok(NULL, ",");
             vCliente[longitud].limiteCredito = atof(token);
 
-            //token = strtok(NULL, ",");
-            //vCliente[longitud].refClienteId = atof(token);
+            token = strtok(NULL, ",");
+            vCliente[longitud].refClienteId = atof(token);
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[0] = atof(token);
@@ -260,7 +260,6 @@ void buscarClientePorEdad()
 
 
 
-/*
 //ARREGLAR REFERIDO
 
 struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
@@ -277,6 +276,7 @@ struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
 }
 
 void referirCliente(){
+
     struct Cliente vCliente[100];
 
     cargarClientes(vCliente);
@@ -334,4 +334,3 @@ void imprimirReferido(struct Cliente refAimprimir){
     }
 }
 
-*/
