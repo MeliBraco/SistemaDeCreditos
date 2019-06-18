@@ -2,7 +2,6 @@
 #include "Cliente.c"
 #include "Creditos.c"
 #include "Archivo.c"
-#include "Default.h"
 
 int main() {
 

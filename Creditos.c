@@ -61,6 +61,7 @@ void solicitarCredito()
     encontroId(encontro, id);
 
     actualizarArchivo(encontro, longitud, vCliente);
+
 }
 
 void cancelarCredito() {
@@ -220,13 +221,13 @@ float limiteCredito(struct Cliente *nuevoCliente)
 {
     float limite;
 
-    if(nuevoCliente->refCliente == NULL)
+/*    if(nuevoCliente->refCliente == NULL)
     {
         limite = 1000;
     }
     else {
         limite = 2000;
-    }
+    }*/
 
     return limite;
 }
@@ -265,3 +266,4 @@ int DeudaActual(struct Cliente *nuevoCliente, float monto)
 
     return total + monto;
 }
+

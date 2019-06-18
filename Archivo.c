@@ -16,7 +16,7 @@ void guardarEnArchivo(struct Cliente *nuevoCliente){
             nuevoCliente->edad,
             nuevoCliente->dni,
             nuevoCliente->limiteCredito,
-            nuevoCliente->refClienteId,
+           // nuevoCliente->refClienteId,
             nuevoCliente->ListaCreditos[0],
             nuevoCliente->ListaCreditos[1],
             nuevoCliente->ListaCreditos[2]);
@@ -37,7 +37,7 @@ void sobrescribirArchivo(struct Cliente *nuevoCliente){
             nuevoCliente->edad,
             nuevoCliente->dni,
             nuevoCliente->limiteCredito,
-            nuevoCliente->refClienteId,
+           // nuevoCliente->refClienteId,
             nuevoCliente->ListaCreditos[0],
             nuevoCliente->ListaCreditos[1],
             nuevoCliente->ListaCreditos[2]);
@@ -48,6 +48,7 @@ void sobrescribirArchivo(struct Cliente *nuevoCliente){
 void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
 {
     //longitud es la longitud del array de clientes cargados en memoria
+
     if(encontro == 1)
     {
         for (int i = 0; i < longitud; i++) {
@@ -62,7 +63,8 @@ void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
     }
 }
 
+/*
 void borrarEnArchivo(int encontro,int longitud, struct Cliente *vCliente){
     //debe sobreescribir el csv con el array que tiene en memoria
 
-}
+}*/

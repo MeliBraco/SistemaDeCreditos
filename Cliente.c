@@ -2,7 +2,8 @@
 #include "Default.h"
 #include <string.h>
 #include <stdlib.h>
-#include <mspcoll.h>
+#include "Excepciones.c"
+
 
 
 void ingresar(){
@@ -32,9 +33,9 @@ void ingresar(){
 
     strcpy(nuevoCliente.nombre, nombreAux);
 
-     nuevoCliente.refClienteId = 0;
+     //nuevoCliente.refClienteId = 0;
 
-    struct Cliente *referido = NULL;
+    //struct Cliente *referido = NULL;
 
     inicializacionCredito(&nuevoCliente);
 
@@ -78,8 +79,8 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             token = strtok(NULL, ",");
             vCliente[longitud].limiteCredito = atof(token);
 
-            token = strtok(NULL, ",");
-            vCliente[longitud].refClienteId = atof(token);
+            //token = strtok(NULL, ",");
+            //vCliente[longitud].refClienteId = atof(token);
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[0] = atof(token);
@@ -150,7 +151,7 @@ void imprimirCliente(struct Cliente aImprimir){
         printf("-Edad = %d \n", aImprimir.edad);
         printf("-DNI = %d \n", aImprimir.dni);
         printf("-LIMITE DE CREDITO DISPONIBLE = %f \n", aImprimir.limiteCredito);
-        imprimirReferido(aImprimir);
+        //imprimirReferido(aImprimir);
 
         for (int i = 0; i < 3; i++) {
 
@@ -258,6 +259,8 @@ void buscarClientePorEdad()
 }
 
 
+
+/*
 //ARREGLAR REFERIDO
 
 struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
@@ -330,3 +333,5 @@ void imprimirReferido(struct Cliente refAimprimir){
         printf("ESTE CLIENTE NO TIENE REFERIDOS");
     }
 }
+
+*/
