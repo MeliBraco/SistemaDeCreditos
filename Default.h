@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 struct Cliente{
+
     int Id;
     char nombre[100];
     char apellido[100];
@@ -22,23 +23,17 @@ void guardarEnArchivo(struct Cliente *);
 
 void getClientes();
 
-void referirCliente();
-
 char * tipoCredito(int);
 
 float limiteCredito(struct Cliente *);
 
 struct Cliente * parsearCliente();
 
-struct Cliente* buscarReferidoPorId(int id, struct Cliente* vCliente);
-
 void buscarClientePorId();
 
 void buscarClientePorNombre();
 
 void imprimirCliente(struct Cliente);
-
-void imprimirReferido(struct Cliente refAimprimir);
 
 void solicitarCredito();
 
@@ -65,3 +60,12 @@ void listarCreditos();
 void Salir();
 
 void menu();
+
+
+//ARREGLAR TODOS ESTOS METODOS
+
+void imprimirReferido(struct Cliente refAimprimir);
+
+struct Cliente* buscarReferidoPorId(int id, struct Cliente* vCliente);
+
+void referirCliente();
