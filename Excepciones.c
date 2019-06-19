@@ -15,6 +15,14 @@ void encontroNombre(int encontro, char nombre[50]){
         printf("no se encontraron resultados para el Nombre:%s", nombre);
     }
 }
+void encontroEdad(int encontro, int edadA, int edadB){
+
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el rango de edad: %d - %d", edadA, edadB);
+    }
+
+}
 
 int buscarId(int *id, int longitud)
 {

@@ -5,7 +5,7 @@
 
 int main() {
 
-    menu();
+    buscarClientePorNombre();
 
     return 0;
 }

@@ -251,6 +251,7 @@ void buscarClientePorEdad()
 
     printf("Ingresar Rango de edad:\nMenor Valor:");
     scanf("%d", &edadA);
+
     printf("Mayor Valor:");
     scanf("%d", &edadB);
 
@@ -264,10 +265,7 @@ void buscarClientePorEdad()
         }
     }
 
-    if(encontro == 0)
-    {
-        printf("no se encontraron resultados para el rango de edad: %d - %d", edadA, edadB);
-    }
+    encontroEdad(encontro,edadA,edadB);
 }
 
 //ARREGLAR REFERIDO
