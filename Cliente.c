@@ -219,7 +219,7 @@ void buscarClientePorNombre()
 
     int encontro = 0;
 
-    char nombre [100];
+    char nombre [50];
 
     printf("Ingresar Nombre:\n");
     scanf("%s", nombre);
@@ -234,10 +234,7 @@ void buscarClientePorNombre()
         }
     }
 
-    if(encontro == 0)
-    {
-        printf("no se encontraron resultados para el Nombre:%s", nombre);
-    }
+    encontroNombre(encontro,nombre);
 }
 
 void buscarClientePorEdad()
@@ -272,8 +269,6 @@ void buscarClientePorEdad()
         printf("no se encontraron resultados para el rango de edad: %d - %d", edadA, edadB);
     }
 }
-
-
 
 //ARREGLAR REFERIDO
 /*

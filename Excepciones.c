@@ -8,6 +8,14 @@ void encontroId(int encontro, int id){
     }
 }
 
+void encontroNombre(int encontro, char nombre[50]){
+
+    if(encontro == 0)
+    {
+        printf("no se encontraron resultados para el Nombre:%s", nombre);
+    }
+}
+
 int buscarId(int *id, int longitud)
 {
     struct Cliente vCliente[100];
