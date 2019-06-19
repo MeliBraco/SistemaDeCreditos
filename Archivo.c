@@ -47,7 +47,7 @@ void sobrescribirArchivo(struct Cliente *nuevoCliente){
 
 void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
 {
-    //longitud es la longitud del array de clientes cargados en memoria
+    Shell(vCliente,longitud);
 
     if(encontro == 1)
     {
@@ -62,6 +62,27 @@ void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
         }
     }
 }
+
+void Shell( struct Cliente *array, int n) {
+
+    int i,x,y,tmp;
+
+    for(i = 1; i < n; i = i*3+1) {}
+
+    while (i > 0) {
+        for(x = i; x < n; x++) {
+            y = x;
+            tmp = array[x].Id;
+            while (y >= i && array[y - i].Id > tmp) {
+                array[y] = array[y - i];
+                y = y - i;
+            }
+            array[y].Id = tmp;
+        }
+        i = i / 2;
+    }
+}
+
 
 /*
 void borrarEnArchivo(int encontro,int longitud, struct Cliente *vCliente){

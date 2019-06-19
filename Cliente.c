@@ -18,12 +18,10 @@ void ingresar(){
 
     cargarClientes(vCliente);
 
-    int longitud = getCantidadCliente(vCliente);
-
     printf("Ingresar Id:\n");
     scanf("%d", &nuevoCliente.Id);
 
-    if(buscarId(&nuevoCliente.Id, longitud) == 0) {
+    if(buscarId(&nuevoCliente.Id, getCantidadCliente(vCliente)) == 0) {
 
         printf("Ingresar Apellido:\n");
         scanf("%s", apellidoAux);
@@ -51,14 +49,17 @@ void ingresar(){
 
         guardarEnArchivo(&nuevoCliente);
 
+        actualizarArchivo(1, getCantidadCliente(vCliente), vCliente);
+
         printf("El Empleado fue ingresado correctamente \n\n");
     }
     else
     {
-        printf("Ya se encuentra disponible un cliente con el mismo Id, vuelva a ingresar los datos \n\n");
+        printf("Ya se encuentra vigente un cliente con ese Id, vuelva a ingresar los datos \n\n");
 
         ingresar();
     }
+
 }
 
 struct Cliente* cargarClientes(struct Cliente* vCliente){
@@ -152,7 +153,6 @@ void getClientes()
     for(int i = 0; i<longitud; i++)
     {
         imprimirCliente(vCliente[i]);
-
     }
 }
 
@@ -185,8 +185,6 @@ void buscarClientePorId()
 
     cargarClientes(vCliente);
 
-    int longitud = getCantidadCliente(vCliente);
-
     int encontro = 0;
 
     int id;
@@ -194,7 +192,7 @@ void buscarClientePorId()
     printf("Ingresar Id:\n");
     scanf("%d", &id);
 
-    for(int i = 0; i<longitud; i++)
+    for(int i = 0; i< getCantidadCliente(vCliente); i++)
     {
         if(encontro == 0)
         {
@@ -215,8 +213,6 @@ void buscarClientePorNombre()
 
     cargarClientes(vCliente);
 
-    int longitud = getCantidadCliente(vCliente);
-
     int encontro = 0;
 
     char nombre [50];
@@ -224,7 +220,7 @@ void buscarClientePorNombre()
     printf("Ingresar Nombre:\n");
     scanf("%s", nombre);
 
-    for(int i = 0; i<longitud; i++)
+    for(int i = 0; i< getCantidadCliente(vCliente); i++)
     {
         if(strcmp(vCliente[i].nombre , nombre) == 0)
         {
@@ -243,8 +239,6 @@ void buscarClientePorEdad()
 
     cargarClientes(vCliente);
 
-    int longitud = getCantidadCliente(vCliente);
-
     int encontro = 0;
 
     int edadA, edadB;
@@ -255,7 +249,7 @@ void buscarClientePorEdad()
     printf("Mayor Valor:");
     scanf("%d", &edadB);
 
-    for(int i = 0; i<longitud; i++)
+    for(int i = 0; i< getCantidadCliente(vCliente); i++)
     {
         if(vCliente[i].edad >= edadA && vCliente[i].edad <= edadB )
         {
@@ -268,7 +262,9 @@ void buscarClientePorEdad()
     encontroEdad(encontro,edadA,edadB);
 }
 
-//ARREGLAR REFERIDO
+
+
+//ARREGLAR REFERIDO(ivan)
 /*
 struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
 {

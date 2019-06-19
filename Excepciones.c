@@ -15,6 +15,7 @@ void encontroNombre(int encontro, char nombre[50]){
         printf("no se encontraron resultados para el Nombre:%s", nombre);
     }
 }
+
 void encontroEdad(int encontro, int edadA, int edadB){
 
     if(encontro == 0)

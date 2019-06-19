@@ -16,7 +16,7 @@ struct Cliente{
 
 };
 
-int getCantiadClientes(struct Cliente* vCliente);
+int getCantiadClientes(struct Cliente * vCliente);
 
 void ingresar();
 
@@ -48,7 +48,7 @@ void sobrescribirArchivo(struct Cliente *);
 
 void encontroId(int, int);
 
-struct Cliente* cargarClientes(struct Cliente* vCliente);
+struct Cliente* cargarClientes(struct Cliente * vCliente);
 
 void cancelarCredito();
 
@@ -60,13 +60,15 @@ void listarCreditos();
 
 int buscarId(int *, int);
 
+void Shell(struct Cliente *vCliente, int n);
+
 void Salir();
 
 void menu();
 
 
 
-//ARREGLAR TODOS ESTOS METODOS
+//ARREGLAR TODOS ESTOS METODOS(ivan)
 /*
 void imprimirReferido(struct Cliente refAimprimir);
 
