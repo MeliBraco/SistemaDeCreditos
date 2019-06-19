@@ -71,7 +71,7 @@ void menu() {
                 break;
 
             case 10:
-                referirCliente();
+                //referirCliente();
                 break;
 
             case 11:

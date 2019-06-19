@@ -14,36 +14,51 @@ void ingresar(){
 
     char apellidoAux[100];
 
+    struct Cliente vCliente[100];
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
     printf("Ingresar Id:\n");
     scanf("%d", &nuevoCliente.Id);
 
-    printf("Ingresar Apellido:\n");
-    scanf("%s", apellidoAux);
+    if(buscarId(&nuevoCliente.Id, longitud) == 0) {
 
-    printf("Ingresar Nombre:\n");
-    scanf("%s", nombreAux);
+        printf("Ingresar Apellido:\n");
+        scanf("%s", apellidoAux);
 
-    printf("Ingresar edad:\n");
-    scanf("%d", &nuevoCliente.edad);
+        printf("Ingresar Nombre:\n");
+        scanf("%s", nombreAux);
 
-    printf("Ingresar dni:\n");
-    scanf("%d", &nuevoCliente.dni);
+        printf("Ingresar edad:\n");
+        scanf("%d", &nuevoCliente.edad);
 
-    strcpy(nuevoCliente.apellido, apellidoAux);
+        printf("Ingresar dni:\n");
+        scanf("%d", &nuevoCliente.dni);
 
-    strcpy(nuevoCliente.nombre, nombreAux);
+        strcpy(nuevoCliente.apellido, apellidoAux);
 
-     nuevoCliente.refClienteId = 0;
+        strcpy(nuevoCliente.nombre, nombreAux);
 
-    struct Cliente *referido = NULL;
+       //nuevoCliente.refClienteId = 0;
 
-    inicializacionCredito(&nuevoCliente);
+        //struct Cliente *referido = NULL;
 
-    nuevoCliente.limiteCredito = limiteCredito(&nuevoCliente);
+        inicializacionCredito(&nuevoCliente);
 
-    guardarEnArchivo(&nuevoCliente);
+        nuevoCliente.limiteCredito = limiteCredito(&nuevoCliente);
 
-    printf("El Empleado fue ingresado correctamente \n\n");
+        guardarEnArchivo(&nuevoCliente);
+
+        printf("El Empleado fue ingresado correctamente \n\n");
+    }
+    else
+    {
+        printf("Ya se encuentra disponible un cliente con el mismo Id, vuelva a ingresar los datos \n\n");
+
+        ingresar();
+    }
 }
 
 struct Cliente* cargarClientes(struct Cliente* vCliente){
@@ -79,8 +94,8 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             token = strtok(NULL, ",");
             vCliente[longitud].limiteCredito = atof(token);
 
-            token = strtok(NULL, ",");
-            vCliente[longitud].refClienteId = atof(token);
+           // token = strtok(NULL, ",");
+          //  vCliente[longitud].refClienteId = atof(token);
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[0] = atof(token);
@@ -261,7 +276,7 @@ void buscarClientePorEdad()
 
 
 //ARREGLAR REFERIDO
-
+/*
 struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
 {
     int longitud = getCantidadCliente(vCliente);
@@ -333,4 +348,4 @@ void imprimirReferido(struct Cliente refAimprimir){
         printf("ESTE CLIENTE NO TIENE REFERIDOS");
     }
 }
-
+*/

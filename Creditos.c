@@ -219,8 +219,8 @@ int menuTipoCredito()
 
 float limiteCredito(struct Cliente *nuevoCliente)
 {
-    float limite;
-
+    float limite = 1000;
+/*
     if(nuevoCliente->refCliente == NULL)
     {
         limite = 1000;
@@ -228,7 +228,7 @@ float limiteCredito(struct Cliente *nuevoCliente)
     else {
         limite = 2000;
     }
-
+*/
     return limite;
 }
 

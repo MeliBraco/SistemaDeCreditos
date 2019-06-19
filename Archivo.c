@@ -16,7 +16,7 @@ void guardarEnArchivo(struct Cliente *nuevoCliente){
             nuevoCliente->edad,
             nuevoCliente->dni,
             nuevoCliente->limiteCredito,
-            nuevoCliente->refClienteId,
+            //nuevoCliente->refClienteId,
             nuevoCliente->ListaCreditos[0],
             nuevoCliente->ListaCreditos[1],
             nuevoCliente->ListaCreditos[2]);

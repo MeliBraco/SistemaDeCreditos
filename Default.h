@@ -9,11 +9,14 @@ struct Cliente{
     unsigned int dni;
     int ListaCreditos [3];
     float limiteCredito;
+
+    /*
     int refClienteId;
-    struct Cliente * refCliente;
+    struct Cliente * refCliente;*/
 
 };
 
+int getCantiadClientes(struct Cliente* vCliente);
 
 void ingresar();
 
@@ -47,8 +50,6 @@ void encontroId(int, int);
 
 struct Cliente* cargarClientes(struct Cliente* vCliente);
 
-int getCantiadClientes(struct Cliente* vCliente);
-
 void cancelarCredito();
 
 void actualizarArchivo(int, int, struct Cliente *vCliente);
@@ -57,6 +58,8 @@ void pagarCredito();
 
 void listarCreditos();
 
+int buscarId(int *, int);
+
 void Salir();
 
 void menu();
@@ -64,10 +67,11 @@ void menu();
 
 
 //ARREGLAR TODOS ESTOS METODOS
-
+/*
 void imprimirReferido(struct Cliente refAimprimir);
 
 struct Cliente* buscarReferidoPorId(int id, struct Cliente* vCliente);
 
 void referirCliente();
 
+*/
