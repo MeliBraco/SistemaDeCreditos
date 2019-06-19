@@ -58,6 +58,8 @@ void pagarCredito();
 
 void listarCreditos();
 
+void iniciarDatosVectorCliente(struct Cliente* vCliente);
+
 int buscarId(int *, int);
 
 void Shell(struct Cliente *vCliente, int n);

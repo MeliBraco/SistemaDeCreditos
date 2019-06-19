@@ -5,7 +5,6 @@
 #include "Excepciones.c"
 
 
-
 void ingresar(){
 
     struct Cliente nuevoCliente;
@@ -14,7 +13,7 @@ void ingresar(){
 
     char apellidoAux[100];
 
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 
@@ -144,7 +143,7 @@ int getCantidadCliente(struct Cliente* vCliente){
 
 void getClientes()
 {
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 
@@ -181,7 +180,7 @@ void imprimirCliente(struct Cliente aImprimir){
 
 void buscarClientePorId()
 {
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 
@@ -209,7 +208,7 @@ void buscarClientePorId()
 
 void buscarClientePorNombre()
 {
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 
@@ -235,7 +234,7 @@ void buscarClientePorNombre()
 
 void buscarClientePorEdad()
 {
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 

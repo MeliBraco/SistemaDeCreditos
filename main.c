@@ -5,7 +5,7 @@
 
 int main() {
 
-    menu();
+    getClientes();
 
     return 0;
 }

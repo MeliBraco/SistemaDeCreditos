@@ -14,7 +14,7 @@ void inicializacionCredito(struct Cliente *nuevoCliente)
 
 void solicitarCredito()
 {
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     int encontro = 0;
 
@@ -66,7 +66,7 @@ void solicitarCredito()
 
 void cancelarCredito() {
 
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     int encontro = 0;
 
@@ -115,7 +115,7 @@ void cancelarCredito() {
 
 void pagarCredito() {
 
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     int encontro = 0;
 
@@ -169,7 +169,7 @@ void pagarCredito() {
 
 void listarCreditos(){
 
-    struct Cliente vCliente[100];
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 
