@@ -16,9 +16,9 @@ struct Cliente{
 
 };
 
-int getCantiadClientes(struct Cliente * vCliente);
-
 void ingresar();
+
+int getCantidadCliente(struct Cliente* vCliente);
 
 void inicializacionCredito();
 
@@ -35,6 +35,8 @@ struct Cliente * parsearCliente();
 void buscarClientePorId();
 
 void buscarClientePorNombre();
+
+void buscarClientePorEdad();
 
 void imprimirCliente(struct Cliente);
 
