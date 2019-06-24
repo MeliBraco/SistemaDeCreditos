@@ -261,7 +261,38 @@ void buscarClientePorEdad()
     encontroEdad(encontro,edadA,edadB);
 }
 
+void eliminarCliente()
+{
+    struct Cliente vCliente[1000];
 
+    cargarClientes(vCliente);
+
+    int encontro = 0;
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int id;
+
+    printf("Ingresar Id del cliente que desea Eliminar:\n");
+    scanf("%d", &id);
+
+    for(int i = 0; i< longitud; i++) {
+
+        if (encontro == 0) {
+
+            if(vCliente[i].Id == id)
+            {
+                encontro = 1;
+
+                vCliente[i].Id = 0;
+
+            }
+        }
+    }
+    encontroId(encontro, id);
+
+    actualizarArchivo(encontro, longitud, vCliente);
+}
 
 //ARREGLAR REFERIDO(ivan)
 /*

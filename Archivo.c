@@ -49,15 +49,39 @@ void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
 {
     Shell(vCliente,longitud);
 
+    int idCero = 0;
+
     if(encontro == 1)
     {
         for (int i = 0; i < longitud; i++) {
 
-            if(i == 0) {
-                sobrescribirArchivo(&vCliente[i]);
+            if(vCliente[i].Id != 0){
+
+                if(idCero)
+                {
+                    if (i == 1) {
+
+                        sobrescribirArchivo(&vCliente[i]);
+
+                        idCero = 0;
+                    }
+                }
+                else {
+
+                    if (i == 0) {
+
+                        sobrescribirArchivo(&vCliente[i]);
+
+                    } else {
+
+                        guardarEnArchivo(&vCliente[i]);
+                    }
+                }
             }
-            else{
-                guardarEnArchivo(&vCliente[i]);
+
+            else
+            {
+                idCero = 1;
             }
         }
     }
@@ -70,11 +94,17 @@ void Shell( struct Cliente *array, int n) {
     for(i = 1; i < n; i = i*3+1) {}
 
     while (i > 0) {
+
         for(x = i; x < n; x++) {
+
             y = x;
+
             tmp = array[x].Id;
+
             while (y >= i && array[y - i].Id > tmp) {
+
                 array[y] = array[y - i];
+
                 y = y - i;
             }
             array[y].Id = tmp;
@@ -83,9 +113,3 @@ void Shell( struct Cliente *array, int n) {
     }
 }
 
-
-/*
-void borrarEnArchivo(int encontro,int longitud, struct Cliente *vCliente){
-    //debe sobreescribir el csv con el array que tiene en memoria
-
-}*/

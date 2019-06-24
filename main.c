@@ -5,11 +5,10 @@
 
 int main() {
 
-    getClientes();
+    menu();
 
     return 0;
 }
-
 
 void menu() {
 
@@ -26,7 +25,7 @@ void menu() {
                "\n7-  Pagar credito"
                "\n8-  Cancelar credito"
                "\n9-  Listar creditos"
-               "\n10- Referencias Cliente"
+               "\n10- Eliminar Cliente"
                "\n11- Salir \n "
                "\nIngrese una Opcion:");
 
@@ -71,7 +70,7 @@ void menu() {
                 break;
 
             case 10:
-                //referirCliente();
+                eliminarCliente();
                 break;
 
             case 11:

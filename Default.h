@@ -60,6 +60,8 @@ void pagarCredito();
 
 void listarCreditos();
 
+void eliminarCliente();
+
 void iniciarDatosVectorCliente(struct Cliente* vCliente);
 
 int buscarId(int *, int);
