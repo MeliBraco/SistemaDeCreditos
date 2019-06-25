@@ -9,10 +9,7 @@ struct Cliente{
     unsigned int dni;
     int ListaCreditos [3];
     float limiteCredito;
-
-    /*
     int refClienteId;
-    struct Cliente * refCliente;*/
 
 };
 
@@ -72,14 +69,10 @@ void Salir();
 
 void menu();
 
-
-
-//ARREGLAR TODOS ESTOS METODOS(ivan)
-/*
-void imprimirReferido(struct Cliente refAimprimir);
-
-struct Cliente* buscarReferidoPorId(int id, struct Cliente* vCliente);
+void eliminarReferido();
 
 void referirCliente();
 
-*/
+void buscarReferidoPorId(int id);
+
+void imprimirReferido(struct Cliente refAimprimir);

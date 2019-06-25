@@ -28,19 +28,17 @@ void ingresar(){
         printf("Ingresar Nombre:\n");
         scanf("%s", nombreAux);
 
-        printf("Ingresar edad:\n");
+        printf("Ingresar Edad:\n");
         scanf("%d", &nuevoCliente.edad);
 
-        printf("Ingresar dni:\n");
+        printf("Ingresar DNI:\n");
         scanf("%d", &nuevoCliente.dni);
 
         strcpy(nuevoCliente.apellido, apellidoAux);
 
         strcpy(nuevoCliente.nombre, nombreAux);
 
-       //nuevoCliente.refClienteId = 0;
-
-        //struct Cliente *referido = NULL;
+        nuevoCliente.refClienteId = 0;
 
         inicializacionCredito(&nuevoCliente);
 
@@ -65,7 +63,7 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
 
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
-    char linea[100];
+    char linea[1000];
 
     char *token;
 
@@ -73,10 +71,10 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
 
     while(!feof(archivo))
     {
-        fgets(linea,100, archivo);
+        fgets(linea,1000, archivo);
 
         token = strtok(linea, ",");
-        if(*token != 10) {
+        if(*token != 11) {
             vCliente[longitud].Id = atoi(token);
 
             token = strtok(NULL, ",");
@@ -94,8 +92,8 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             token = strtok(NULL, ",");
             vCliente[longitud].limiteCredito = atof(token);
 
-           // token = strtok(NULL, ",");
-          //  vCliente[longitud].refClienteId = atof(token);
+            token = strtok(NULL, ",");
+            vCliente[longitud].refClienteId = atoi(token);
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[0] = atof(token);
@@ -117,7 +115,7 @@ int getCantidadCliente(struct Cliente* vCliente){
 
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
-    char linea[100];
+    char linea[1000];
 
     char *token;
 
@@ -125,11 +123,11 @@ int getCantidadCliente(struct Cliente* vCliente){
 
     while(!feof(archivo))
     {
-        fgets(linea,100, archivo);
+        fgets(linea,1000, archivo);
 
         token = strtok(linea,",");
 
-        if(*token != 10)
+        if(*token != 11)
         {
             vCliente[longitud].Id = atoi(token);
 
@@ -165,7 +163,7 @@ void imprimirCliente(struct Cliente aImprimir){
         printf("-Edad = %d \n", aImprimir.edad);
         printf("-DNI = %d \n", aImprimir.dni);
         printf("-LIMITE DE CREDITO DISPONIBLE = %f \n", aImprimir.limiteCredito);
-        //imprimirReferido(aImprimir);
+        imprimirReferido(aImprimir);
 
         for (int i = 0; i < 3; i++) {
 
@@ -278,8 +276,11 @@ void eliminarCliente()
 
     for(int i = 0; i< longitud; i++) {
 
-        if (encontro == 0) {
-
+        if (vCliente[i].refClienteId == id) {
+            vCliente[i].refClienteId = 0;
+            vCliente[i].limiteCredito = 1000;
+        }
+        if (encontro == 0){
             if(vCliente[i].Id == id)
             {
                 encontro = 1;
@@ -294,24 +295,9 @@ void eliminarCliente()
     actualizarArchivo(encontro, longitud, vCliente);
 }
 
-//ARREGLAR REFERIDO(ivan)
-/*
-struct Cliente* buscarReferidoPorId(int id,struct Cliente* vCliente)
-{
-    int longitud = getCantidadCliente(vCliente);
 
-    for(int i = 0; i<longitud; i++)
-    {
-        if(vCliente[i].Id == id)
-        {
-            return &vCliente[i];
-        }
-    }
-}
-
-void referirCliente(){
-
-    struct Cliente vCliente[100];
+void eliminarReferido() {
+    struct Cliente vCliente[1000];
 
     cargarClientes(vCliente);
 
@@ -319,24 +305,48 @@ void referirCliente(){
 
     int encontro = 0;
 
-    char nombre [100];
+    int id;
 
-    char refe[100];
+    int refeid;
 
-    printf("Ingresar Nombre del cliente que refiere:\n");
-    scanf("%s", nombre);
+    printf("Ingresar ID del cliente que quiere eliminar su referido:\n");
+    scanf("%d", id);
+
+    for (int i = 0; i < longitud; i++) {
+        if (vCliente[i].Id == id) {
+            vCliente[i].refClienteId = 0;
+            vCliente[i].limiteCredito = 1000;
+        }
+    }
+}
+
+void referirCliente(){
+
+    struct Cliente vCliente[1000];
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int encontro = 0;
+
+    int id;
+
+    int refeid;
+
+    printf("Ingresar ID del cliente que refiere:\n");
+    scanf("%d", id);
 
     printf("Ingresar Nombre del cliente referido:\n");
-    scanf("%s", refe);
+    scanf("%d", refeid);
 
     for(int i = 0; i<longitud; i++)
     {
-        if(strcmp(vCliente[i].nombre , nombre) == 0)
+        if(vCliente[i].Id == id)
         {
             if(vCliente[i].refClienteId != 0) {
                 for (int f = 0; f < longitud; f++) {
-                    if (strcmp(vCliente[f].nombre, refe) == 0) {
-                        vCliente[i].refCliente = &vCliente[f];
+                    if (vCliente[f].Id == refeid) {
                         vCliente[i].refClienteId = vCliente[f].Id;
                         vCliente[i].limiteCredito = 2000;
                         printf("La referencia se agrego correctamente");
@@ -354,17 +364,34 @@ void referirCliente(){
     }
 }
 
+
 void imprimirReferido(struct Cliente refAimprimir){
 
-    struct Cliente vCliente[100];
-
-    cargarClientes(vCliente);
-
     if (refAimprimir.refClienteId != 0){
-        refAimprimir.refCliente = buscarReferidoPorId(refAimprimir.refClienteId, vCliente);
-        printf("- CLIENTE REFERIDO : %c", refAimprimir.refCliente->nombre);
+        buscarReferidoPorId(refAimprimir.refClienteId);
     }else{
         printf("ESTE CLIENTE NO TIENE REFERIDOS");
     }
 }
-*/
+
+void buscarReferidoPorId(int id)
+{
+    struct Cliente vCliente[1000];
+
+    cargarClientes(vCliente);
+
+    int encontro = 0;
+
+    for(int i = 0; i< getCantidadCliente(vCliente); i++)
+    {
+        if(encontro == 0)
+        {
+            if(vCliente[i].Id == id)
+            {
+                encontro = 1;
+                printf("- CLIENTE REFERIDO :%c \n", vCliente[i].nombre);
+            }
+        }
+    }
+    encontroId(encontro, id);
+}
