@@ -2,8 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-
-
 void guardarEnArchivo(struct Cliente *nuevoCliente){
 
     FILE * archivo;

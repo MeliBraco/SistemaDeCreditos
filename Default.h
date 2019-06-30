@@ -71,12 +71,11 @@ void menu();
 
 void referirCliente();
 
+void eliminarReferido();
+
 int calcularNuevoLimiteReferido(struct Cliente);
 
-
-
-/*void eliminarReferido();
-
+/*
 void buscarReferidoPorId(int id);
 
 void imprimirReferido(struct Cliente refAimprimir);*/

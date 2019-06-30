@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include "Excepciones.c"
 
-
-
 void ingresar(){
 
     struct Cliente nuevoCliente;
@@ -38,10 +36,6 @@ void ingresar(){
         strcpy(nuevoCliente.apellido, apellidoAux);
 
         strcpy(nuevoCliente.nombre, nombreAux);
-
-        //nuevoCliente.refClienteId = 0;
-
-        //struct Cliente *referido = NULL;
 
         nuevoCliente.referidoID = 0;
 
@@ -95,9 +89,6 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             token = strtok(NULL, ",");
             vCliente[longitud].limiteCredito = atof(token);
 
-            // token = strtok(NULL, ",");
-            //  vCliente[longitud].refClienteId = atof(token);
-
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[0] = atof(token);
 
@@ -106,6 +97,9 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[2] = atof(token);
+
+            token = strtok(NULL, ",");
+            vCliente[longitud].referidoID = atof(token);
 
             longitud++;
         }
@@ -342,7 +336,7 @@ void referirCliente(){
 
                     if (vCliente[i].Id == id) {
 
-                        if(vCliente[i].referidoID != 0) {
+                        if(vCliente[i].referidoID == 0) {
 
                             vCliente[i].referidoID = refeID;
 
@@ -372,6 +366,48 @@ void referirCliente(){
     actualizarArchivo(encontro, longitud, vCliente);
 }
 
+void eliminarReferido()
+{
+    struct Cliente vCliente[1000];
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int encontro = 0;
+
+    int id;
+
+    printf("Ingresar ID del cliente a desreferenciar:\n");
+    scanf("%d", &id);
+
+    if (buscarId(&id,longitud) == 1) {
+
+        if(encontro == 0) {
+
+            for (int i = 0; i < longitud; i++) {
+
+                if (vCliente[i].Id == id) {
+
+                    if(vCliente[i].referidoID != 0) {
+
+                        vCliente[i].referidoID = 0;
+
+                        vCliente[i].limiteCredito = 1000;
+
+
+                        printf("Se quito la referencia al ID %d", id);
+
+                        encontro = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    actualizarArchivo(encontro, longitud, vCliente);
+}
+
 int calcularNuevoLimiteReferido(struct Cliente cliente)
 {
     float limite = cliente.limiteCredito;
@@ -390,120 +426,6 @@ int calcularNuevoLimiteReferido(struct Cliente cliente)
 
 
 /*
-void eliminarCliente()
-{
-    struct Cliente vCliente[1000];
-
-    cargarClientes(vCliente);
-
-    int encontro = 0;
-
-    int longitud = getCantidadCliente(vCliente);
-
-    int id;
-
-    printf("Ingresar Id del cliente que desea Eliminar:\n");
-    scanf("%d", &id);
-
-    for(int i = 0; i< longitud; i++) {
-
-        if (vCliente[i].refClienteId == id) {
-            vCliente[i].refClienteId = 0;
-            vCliente[i].limiteCredito = 1000;
-        }
-        if (encontro == 0){
-            if(vCliente[i].Id == id)
-            {
-                encontro = 1;
-
-                vCliente[i].Id = 0;
-
-            }
-        }
-    }
-    encontroId(encontro, id);
-
-    actualizarArchivo(encontro, longitud, vCliente);
-}
-
-
-void eliminarReferido() {
-    struct Cliente vCliente[1000];
-
-    cargarClientes(vCliente);
-
-    int longitud = getCantidadCliente(vCliente);
-
-    int encontro = 0;
-
-    int id;
-
-    int refeid;
-
-    printf("Ingresar ID del cliente que quiere eliminar su referido:\n");
-    scanf("%d", id);
-
-    for (int i = 0; i < longitud; i++) {
-        if (vCliente[i].Id == id) {
-            vCliente[i].refClienteId = 0;
-            vCliente[i].limiteCredito = 1000;
-        }
-    }
-}
-
-void referirCliente(){
-
-    struct Cliente vCliente[1000];
-
-    cargarClientes(vCliente);
-
-    int longitud = getCantidadCliente(vCliente);
-
-    int encontro = 0;
-
-    int id;
-
-    int refeid;
-
-    printf("Ingresar ID del cliente que refiere:\n");
-    scanf("%d", id);
-
-    printf("Ingresar Nombre del cliente referido:\n");
-    scanf("%d", refeid);
-
-    for(int i = 0; i<longitud; i++)
-    {
-        if(vCliente[i].Id == id)
-        {
-            if(vCliente[i].refClienteId != 0) {
-                for (int f = 0; f < longitud; f++) {
-                    if (vCliente[f].Id == refeid) {
-                        vCliente[i].refClienteId = vCliente[f].Id;
-                        vCliente[i].limiteCredito = 2000;
-                        printf("La referencia se agrego correctamente");
-                        encontro = 1;
-                        actualizarArchivo(1, 100, vCliente);
-                    }
-                }
-            }else{
-                printf("Este cliente ya tiene un referido");
-                encontro =1;
-            }
-        }
-    }if (encontro == 0){
-        printf("El nombre del cliente o del referido no existen");
-    }
-}
-
-void imprimirReferido(struct Cliente refAimprimir){
-
-    if (refAimprimir.refClienteId != 0){
-        buscarReferidoPorId(refAimprimir.refClienteId);
-    }else{
-        printf("ESTE CLIENTE NO TIENE REFERIDOS");
-    }
-}
-
 void buscarReferidoPorId(int id)
 {
     struct Cliente vCliente[1000];
