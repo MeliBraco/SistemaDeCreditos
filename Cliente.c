@@ -5,6 +5,7 @@
 #include "Excepciones.c"
 
 
+
 void ingresar(){
 
     struct Cliente nuevoCliente;
@@ -28,17 +29,19 @@ void ingresar(){
         printf("Ingresar Nombre:\n");
         scanf("%s", nombreAux);
 
-        printf("Ingresar Edad:\n");
+        printf("Ingresar edad:\n");
         scanf("%d", &nuevoCliente.edad);
 
-        printf("Ingresar DNI:\n");
+        printf("Ingresar dni:\n");
         scanf("%d", &nuevoCliente.dni);
 
         strcpy(nuevoCliente.apellido, apellidoAux);
 
         strcpy(nuevoCliente.nombre, nombreAux);
 
-        nuevoCliente.refClienteId = 0;
+        //nuevoCliente.refClienteId = 0;
+
+        //struct Cliente *referido = NULL;
 
         inicializacionCredito(&nuevoCliente);
 
@@ -46,9 +49,8 @@ void ingresar(){
 
         guardarEnArchivo(&nuevoCliente);
 
-        actualizarArchivo(1, getCantidadCliente(vCliente), vCliente);
-
         printf("El Empleado fue ingresado correctamente \n\n");
+
     }
     else
     {
@@ -56,14 +58,13 @@ void ingresar(){
 
         ingresar();
     }
-
 }
 
 struct Cliente* cargarClientes(struct Cliente* vCliente){
 
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
-    char linea[1000];
+    char linea[100];
 
     char *token;
 
@@ -71,10 +72,10 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
 
     while(!feof(archivo))
     {
-        fgets(linea,1000, archivo);
+        fgets(linea,100, archivo);
 
         token = strtok(linea, ",");
-        if(*token != 11) {
+        if(*token != 10) {
             vCliente[longitud].Id = atoi(token);
 
             token = strtok(NULL, ",");
@@ -92,8 +93,8 @@ struct Cliente* cargarClientes(struct Cliente* vCliente){
             token = strtok(NULL, ",");
             vCliente[longitud].limiteCredito = atof(token);
 
-            token = strtok(NULL, ",");
-            vCliente[longitud].refClienteId = atoi(token);
+            // token = strtok(NULL, ",");
+            //  vCliente[longitud].refClienteId = atof(token);
 
             token = strtok(NULL, ",");
             vCliente[longitud].ListaCreditos[0] = atof(token);
@@ -115,7 +116,7 @@ int getCantidadCliente(struct Cliente* vCliente){
 
     FILE *archivo = fopen("Archivo1.csv", "rt");
 
-    char linea[1000];
+    char linea[100];
 
     char *token;
 
@@ -123,11 +124,11 @@ int getCantidadCliente(struct Cliente* vCliente){
 
     while(!feof(archivo))
     {
-        fgets(linea,1000, archivo);
+        fgets(linea,100, archivo);
 
         token = strtok(linea,",");
 
-        if(*token != 11)
+        if(*token != 10)
         {
             vCliente[longitud].Id = atoi(token);
 
@@ -163,7 +164,7 @@ void imprimirCliente(struct Cliente aImprimir){
         printf("-Edad = %d \n", aImprimir.edad);
         printf("-DNI = %d \n", aImprimir.dni);
         printf("-LIMITE DE CREDITO DISPONIBLE = %f \n", aImprimir.limiteCredito);
-        imprimirReferido(aImprimir);
+        //imprimirReferido(aImprimir);
 
         for (int i = 0; i < 3; i++) {
 
@@ -276,6 +277,52 @@ void eliminarCliente()
 
     for(int i = 0; i< longitud; i++) {
 
+        if (encontro == 0) {
+
+            if(vCliente[i].Id == id)
+            {
+                encontro = 1;
+
+                vCliente[i].Id = 0;
+
+            }
+        }
+    }
+    encontroId(encontro, id);
+
+    actualizarArchivo(encontro, longitud, vCliente);
+}
+
+void ordenar()
+{
+    struct Cliente vCliente[1000];
+
+    cargarClientes(vCliente);
+
+    actualizarArchivo(1,getCantidadCliente(vCliente), vCliente);
+
+    printf("Se ordenaron los clientes vigentes por ID \n\n");
+}
+
+
+/*
+void eliminarCliente()
+{
+    struct Cliente vCliente[1000];
+
+    cargarClientes(vCliente);
+
+    int encontro = 0;
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int id;
+
+    printf("Ingresar Id del cliente que desea Eliminar:\n");
+    scanf("%d", &id);
+
+    for(int i = 0; i< longitud; i++) {
+
         if (vCliente[i].refClienteId == id) {
             vCliente[i].refClienteId = 0;
             vCliente[i].limiteCredito = 1000;
@@ -364,7 +411,6 @@ void referirCliente(){
     }
 }
 
-
 void imprimirReferido(struct Cliente refAimprimir){
 
     if (refAimprimir.refClienteId != 0){
@@ -395,3 +441,4 @@ void buscarReferidoPorId(int id)
     }
     encontroId(encontro, id);
 }
+*/

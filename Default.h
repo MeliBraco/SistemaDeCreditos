@@ -1,5 +1,4 @@
 #include <stdlib.h>
-
 struct Cliente{
 
     int Id;
@@ -9,7 +8,10 @@ struct Cliente{
     unsigned int dni;
     int ListaCreditos [3];
     float limiteCredito;
+
+    /*
     int refClienteId;
+    struct Cliente * refCliente;*/
 
 };
 
@@ -65,14 +67,16 @@ int buscarId(int *, int);
 
 void Shell(struct Cliente *vCliente, int n);
 
+void ordenar();
+
 void Salir();
 
 void menu();
 
-void eliminarReferido();
+/*void eliminarReferido();
 
 void referirCliente();
 
 void buscarReferidoPorId(int id);
 
-void imprimirReferido(struct Cliente refAimprimir);
+void imprimirReferido(struct Cliente refAimprimir);*/

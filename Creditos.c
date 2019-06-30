@@ -266,4 +266,3 @@ int DeudaActual(struct Cliente *nuevoCliente, float monto)
 
     return total + monto;
 }
-

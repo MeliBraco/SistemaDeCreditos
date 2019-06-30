@@ -25,8 +25,9 @@ void menu() {
                "\n7-  Pagar credito"
                "\n8-  Cancelar credito"
                "\n9-  Listar creditos"
+               "\n10- Ordenar Clientes"
                "\n10- Eliminar Cliente"
-               "\n11- Salir \n "
+               "\n12- Salir \n "
                "\nIngrese una Opcion:");
 
         scanf("%d", &opciones);
@@ -70,10 +71,14 @@ void menu() {
                 break;
 
             case 10:
-                eliminarCliente();
+                ordenar();
                 break;
 
             case 11:
+                eliminarCliente();
+                break;
+
+            case 12:
                 Salir();
                 break;
 

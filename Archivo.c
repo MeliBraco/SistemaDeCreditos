@@ -3,20 +3,21 @@
 #include <stdlib.h>
 
 
+
 void guardarEnArchivo(struct Cliente *nuevoCliente){
 
     FILE * archivo;
 
     archivo = fopen("Archivo1.csv", "a");
 
-    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d,%d",
+    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d",
             nuevoCliente->Id,
             nuevoCliente->apellido,
             nuevoCliente->nombre,
             nuevoCliente->edad,
             nuevoCliente->dni,
             nuevoCliente->limiteCredito,
-            nuevoCliente->refClienteId,
+            //nuevoCliente->refClienteId,
             nuevoCliente->ListaCreditos[0],
             nuevoCliente->ListaCreditos[1],
             nuevoCliente->ListaCreditos[2]);
@@ -30,14 +31,14 @@ void sobrescribirArchivo(struct Cliente *nuevoCliente){
 
     archivo = fopen("Archivo1.csv", "w");
 
-    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d,%d",
+    fprintf(archivo, "\n%d,%s,%s,%d,%d,%f,%d,%d,%d",
             nuevoCliente->Id,
             nuevoCliente->apellido,
             nuevoCliente->nombre,
             nuevoCliente->edad,
             nuevoCliente->dni,
             nuevoCliente->limiteCredito,
-            nuevoCliente->refClienteId,
+            // nuevoCliente->refClienteId,
             nuevoCliente->ListaCreditos[0],
             nuevoCliente->ListaCreditos[1],
             nuevoCliente->ListaCreditos[2]);
@@ -49,6 +50,20 @@ void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
 {
     Shell(vCliente,longitud);
 
+    if(encontro == 1)
+    {
+        for (int i = 0; i < longitud; i++) {
+
+            if(i == 0) {
+                sobrescribirArchivo(&vCliente[i]);
+            }
+            else{
+                guardarEnArchivo(&vCliente[i]);
+            }
+        }
+    }
+
+/*
     int idCero = 0;
 
     if(encontro == 1)
@@ -84,10 +99,10 @@ void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
                 idCero = 1;
             }
         }
-    }
+    }*/
 }
 
-void Shell( struct Cliente *array, int n) {
+void Shell(struct Cliente *array, int n) {
 
     int i,x,y,tmp;
 
