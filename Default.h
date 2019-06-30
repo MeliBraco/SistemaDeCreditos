@@ -8,11 +8,7 @@ struct Cliente{
     unsigned int dni;
     int ListaCreditos [3];
     float limiteCredito;
-
-    /*
-    int refClienteId;
-    struct Cliente * refCliente;*/
-
+    int referidoID;
 };
 
 void ingresar();
@@ -73,9 +69,11 @@ void Salir();
 
 void menu();
 
-/*void eliminarReferido();
-
 void referirCliente();
+
+//int calcularNuevoLimiteReferido(struct Cliente);
+
+/*void eliminarReferido();
 
 void buscarReferidoPorId(int id);
 

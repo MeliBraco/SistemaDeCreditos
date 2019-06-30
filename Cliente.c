@@ -43,6 +43,8 @@ void ingresar(){
 
         //struct Cliente *referido = NULL;
 
+        nuevoCliente.referidoID = 0;
+
         inicializacionCredito(&nuevoCliente);
 
         nuevoCliente.limiteCredito = limiteCredito(&nuevoCliente);
@@ -303,6 +305,73 @@ void ordenar()
 
     printf("Se ordenaron los clientes vigentes por ID \n\n");
 }
+
+void referirCliente(){
+
+    struct Cliente vCliente[1000];
+
+    cargarClientes(vCliente);
+
+    int longitud = getCantidadCliente(vCliente);
+
+    int encontro = 0;
+
+    int id;
+
+    int refeID;
+
+    printf("Ingresar ID del cliente que refiere:\n");
+    scanf("%d", &id);
+
+    printf("Ingresar ID del cliente referido:\n");
+    scanf("%d", &refeID);
+
+    // primero evalua que ningun ID sea cero y luego que existan esos clientes
+
+    int clienteReferido = buscarId(&id,longitud);
+
+    int clienteAReferido = buscarId(&refeID,longitud);
+
+    if(id != 0 && refeID != 0) {
+
+        if (clienteReferido == 1 && clienteAReferido == 1) {
+
+            if(encontro == 0) {
+
+                for (int i = 0; i < longitud; i++) {
+
+                    if (vCliente[i].Id == id) {
+
+                        if(vCliente[i].referidoID != 0) {
+
+                            vCliente[i].referidoID = refeID;
+
+                            vCliente[i].limiteCredito = calcularNuevoLimiteReferido(vCliente[i]);
+
+                            printf("La referencia se agrego correctamente");
+
+                            encontro = 1;
+                        }
+                        else
+                        {
+                            printf("El cliente ingresado ya tiene un referido");
+                        }
+                    }
+                }
+            }
+        } else {
+
+            printf("No existe el cliente que desea referir %d o el cliente referido %d", id, refeID);
+        }
+    }
+    else
+    {
+        printf("Los ID ingresados no pueden ser cero");
+    }
+
+    actualizarArchivo(encontro, longitud, vCliente);
+}
+
 
 
 /*

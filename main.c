@@ -27,7 +27,8 @@ void menu() {
                "\n9-  Listar creditos"
                "\n10- Ordenar Clientes"
                "\n10- Eliminar Cliente"
-               "\n12- Salir \n "
+               "\n12- Referir Cliente"
+               "\n13- Salir \n "
                "\nIngrese una Opcion:");
 
         scanf("%d", &opciones);
@@ -79,7 +80,11 @@ void menu() {
                 break;
 
             case 12:
-                Salir();
+                referirCliente();
+                break;
+
+            case 13:
+                referirCliente();
                 break;
 
             default:
