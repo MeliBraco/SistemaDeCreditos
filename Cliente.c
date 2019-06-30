@@ -159,8 +159,8 @@ void imprimirCliente(struct Cliente aImprimir){
         printf("-Nombre = %s \n", aImprimir.nombre);
         printf("-Edad = %d \n", aImprimir.edad);
         printf("-DNI = %d \n", aImprimir.dni);
+        printf("-ID Referido = %d \n", aImprimir.referidoID);
         printf("-LIMITE DE CREDITO DISPONIBLE = %f \n", aImprimir.limiteCredito);
-        //imprimirReferido(aImprimir);
 
         for (int i = 0; i < 3; i++) {
 
@@ -424,27 +424,3 @@ int calcularNuevoLimiteReferido(struct Cliente cliente)
     return limite + incremento;
 }
 
-
-/*
-void buscarReferidoPorId(int id)
-{
-    struct Cliente vCliente[1000];
-
-    cargarClientes(vCliente);
-
-    int encontro = 0;
-
-    for(int i = 0; i< getCantidadCliente(vCliente); i++)
-    {
-        if(encontro == 0)
-        {
-            if(vCliente[i].Id == id)
-            {
-                encontro = 1;
-                printf("- CLIENTE REFERIDO :%c \n", vCliente[i].nombre);
-            }
-        }
-    }
-    encontroId(encontro, id);
-}
-*/

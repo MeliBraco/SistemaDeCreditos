@@ -42,17 +42,24 @@ void solicitarCredito()
         {
             if(vCliente[i].Id == id)
             {
-                totalDeuda = DeudaActual(&vCliente[i], monto);
-
-                if(vCliente[i].limiteCredito >= totalDeuda)
+                if(vCliente[i].ListaCreditos[tipoCredito] == 0)
                 {
-                    vCliente[i].ListaCreditos[tipoCredito] = monto;
+                    totalDeuda = DeudaActual(&vCliente[i], monto);
 
-                    vCliente[i].limiteCredito = vCliente[i].limiteCredito - monto;
-                } else{
+                    if(vCliente[i].limiteCredito >= totalDeuda)
+                    {
+                        vCliente[i].ListaCreditos[tipoCredito] = monto;
 
-                    printf("El Monto ingresado es insuficiente para solicitar un credito. Limite disponible: %f"
-                            ,vCliente[i].limiteCredito - (totalDeuda - monto));
+                        vCliente[i].limiteCredito = vCliente[i].limiteCredito - monto;
+                    } else{
+
+                        printf("El Monto ingresado es insuficiente para solicitar un credito. Limite disponible: %f"
+                                ,vCliente[i].limiteCredito - (totalDeuda - monto));
+                    }
+                }
+                else
+                {
+                    printf("Debe saldar el credito seleccionado antes de solicitar otro");
                 }
                 encontro = 1;
             }
@@ -61,7 +68,6 @@ void solicitarCredito()
     encontroId(encontro, id);
 
     actualizarArchivo(encontro, longitud, vCliente);
-
 }
 
 void cancelarCredito() {

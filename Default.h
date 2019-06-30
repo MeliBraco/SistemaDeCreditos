@@ -75,7 +75,3 @@ void eliminarReferido();
 
 int calcularNuevoLimiteReferido(struct Cliente);
 
-/*
-void buscarReferidoPorId(int id);
-
-void imprimirReferido(struct Cliente refAimprimir);*/
