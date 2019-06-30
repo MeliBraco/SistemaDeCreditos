@@ -372,6 +372,21 @@ void referirCliente(){
     actualizarArchivo(encontro, longitud, vCliente);
 }
 
+int calcularNuevoLimiteReferido(struct Cliente cliente)
+{
+    float limite = cliente.limiteCredito;
+
+    float sumadorCredito;
+
+    for(int i = 0; i<3; i++){
+
+        sumadorCredito += cliente.ListaCreditos[i];
+    }
+
+    float incremento  = 2000 - (limite + sumadorCredito);
+
+    return limite + incremento;
+}
 
 
 /*

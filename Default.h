@@ -71,7 +71,9 @@ void menu();
 
 void referirCliente();
 
-//int calcularNuevoLimiteReferido(struct Cliente);
+int calcularNuevoLimiteReferido(struct Cliente);
+
+
 
 /*void eliminarReferido();
 
