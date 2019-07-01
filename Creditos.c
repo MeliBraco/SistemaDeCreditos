@@ -149,24 +149,29 @@ void pagarCredito() {
     {
         if (encontro == 0 && vCliente[i].Id == id)
         {
-            if(vCliente[i].ListaCreditos[valorTipoCredito] != 0 && monto <= vCliente[i].ListaCreditos[valorTipoCredito]){
+            if(vCliente[i].ListaCreditos[valorTipoCredito] != 0)
+            {
+                if(monto <= vCliente[i].ListaCreditos[valorTipoCredito])
+                {
+                    vCliente[i].limiteCredito =  vCliente[i].limiteCredito + monto;
 
-                vCliente[i].limiteCredito =  vCliente[i].limiteCredito + monto;
+                    vCliente[i].ListaCreditos[valorTipoCredito] = vCliente[i].ListaCreditos[valorTipoCredito] - monto;
 
-                vCliente[i].ListaCreditos[valorTipoCredito] = vCliente[i].ListaCreditos[valorTipoCredito] - monto;
+                    printf("Su Limite Actual es de: $%f\nDeuda %s: $%d ", vCliente[i].limiteCredito, nombreTipoCredito,vCliente[i].ListaCreditos[valorTipoCredito]);
 
-                printf("Su Limite Actual es de: $%f\nDeuda %s: $%d ", vCliente[i].limiteCredito, nombreTipoCredito,vCliente[i].ListaCreditos[valorTipoCredito]);
+                }
+                else{
 
-                encontro = 1;
+                    printf("El monto a abonar es mayor al total");
+                }
             }
-            else{
-
-                printf("ERROR al pagar credito, no posee deuda o el monto a abonar es mayor al total" );
-
-                encontro = 1;
+            else
+            {
+                printf("No posee deuda para el credito seleccionado");
             }
+
+            encontro = 1;
         }
-
     }
     encontroId(encontro, id);
 
