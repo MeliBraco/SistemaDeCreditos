@@ -60,51 +60,23 @@ void actualizarArchivo(int encontro, int longitud, struct Cliente *vCliente)
             }
         }
     }
-
-/*
-    int idCero = 0;
-
-    if(encontro == 1)
-    {
-        for (int i = 0; i < longitud; i++) {
-
-            if(vCliente[i].Id != 0){
-
-                if(idCero)
-                {
-                    if (i == 1) {
-
-                        sobrescribirArchivo(&vCliente[i]);
-
-                        idCero = 0;
-                    }
-                }
-                else {
-
-                    if (i == 0) {
-
-                        sobrescribirArchivo(&vCliente[i]);
-
-                    } else {
-
-                        guardarEnArchivo(&vCliente[i]);
-                    }
-                }
-            }
-
-            else
-            {
-                idCero = 1;
-            }
-        }
-    }*/
 }
 
 void Shell(struct Cliente *array, int n) {
 
-    int i,x,y,tmp;
+    int i,x,y;
 
-    for(i = 1; i < n; i = i*3+1) {}
+    int tmp, tmpDNI,tmpEdad,tmpReferido;
+
+    char tmpNombre[100];
+
+    char tmpApellido[100];
+
+    float tmpLimiteCredito;
+
+    int tmpHipotecario, tmpAutomotor, tmpOtros;
+
+    for(i = 1; i < n; i = i*3+1) {} //la idea es que SOLO se incremente i a razón de i*3+1 por repetición
 
     while (i > 0) {
 
@@ -114,15 +86,52 @@ void Shell(struct Cliente *array, int n) {
 
             tmp = array[x].Id;
 
+            strcpy(tmpNombre, array[x].nombre);
+
+            strcpy(tmpApellido, array[x].apellido);
+
+            tmpEdad = array[x].edad;
+
+            tmpDNI = array[x].dni;
+
+            tmpLimiteCredito = array[x].limiteCredito;
+
+            tmpHipotecario = array[x].ListaCreditos[0];
+
+            tmpAutomotor = array[x].ListaCreditos[1];
+
+            tmpOtros = array[x].ListaCreditos[2];
+
+            tmpReferido = array[x].referidoID;
+
             while (y >= i && array[y - i].Id > tmp) {
 
                 array[y] = array[y - i];
 
                 y = y - i;
             }
+
             array[y].Id = tmp;
+
+            strcpy(array[y].nombre , tmpNombre);
+
+            strcpy(array[y].apellido, tmpApellido);
+
+            array[y].edad = tmpEdad;
+
+            array[y].dni = tmpDNI;
+
+            array[y].limiteCredito = tmpLimiteCredito;
+
+            array[y].ListaCreditos[0] = tmpHipotecario;
+
+            array[y].ListaCreditos[1] = tmpAutomotor;
+
+            array[y].ListaCreditos[2] = tmpOtros;
+
+            array[y].referidoID = tmpReferido;
+
         }
         i = i / 2;
     }
 }
-

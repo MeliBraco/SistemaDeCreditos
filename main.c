@@ -26,10 +26,9 @@ void menu() {
                "\n8-  Cancelar credito"
                "\n9-  Listar creditos"
                "\n10- Ordenar Clientes"
-               "\n11- Eliminar Cliente"
-               "\n12- Referir Cliente"
-               "\n13- Eliminar Referido"
-               "\n14- Salir \n "
+               "\n11- Referir Cliente"
+               "\n12- Eliminar Referido"
+               "\n13- Salir \n "
                "\nIngrese una Opcion:");
 
         scanf("%d", &opciones);
@@ -77,18 +76,14 @@ void menu() {
                 break;
 
             case 11:
-                eliminarCliente();
-                break;
-
-            case 12:
                 referirCliente();
                 break;
 
-            case 13:
+            case 12:
                 eliminarReferido();
                 break;
 
-            case 14:
+            case 13:
                 Salir();
                 break;
 
@@ -96,7 +91,7 @@ void menu() {
                 printf("Opcion Incorrecta. \n por favor ingrese un numero del 1 al 13 \n");
         }
 
-    }while(opciones != 14);
+    }while(opciones != 13);
 }
 
 void Salir(){

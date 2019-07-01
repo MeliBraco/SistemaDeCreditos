@@ -55,23 +55,21 @@ void pagarCredito();
 
 void listarCreditos();
 
-void eliminarCliente();
-
 void iniciarDatosVectorCliente(struct Cliente* vCliente);
 
 int buscarId(int *, int);
 
 void Shell(struct Cliente *vCliente, int n);
 
-void ordenar();
-
-void Salir();
-
-void menu();
-
 void referirCliente();
 
 void eliminarReferido();
 
 int calcularNuevoLimiteReferido(struct Cliente);
+
+void ordenar();
+
+void Salir();
+
+void menu();
 
